@@ -1,0 +1,135 @@
+@media (max-width: 600px) {
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+  }
+  .body {
+    height: 100%;
+  }
+  .logo {
+    background: url('logo.png');
+    height: 80px;
+    margin-top: 6%;
+    width: 95%;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    /*padding-right: 5%;*/
+    /*outline: 1px solid green;*/
+  }
+  .logo p {
+    color: white;
+    /*border: 1px solid blue;*/
+    padding: auto;
+    font-size: 20px;
+    padding-top: 15px;
+    padding-left: 8%;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+  }
+  .item {
+    margin-top: 10%;
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+  .item li {
+    list-style: none;
+    color: #003557;
+    font-size: 18px;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+  }
+  .detail {
+    color: #858887;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .notFound {
+    text-align: center;
+    margin-top: 20%;
+  }
+  .notFound img {
+    width: 150px;
+    height: 150px;
+  }
+  .notFound p {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    line-height: 26px;
+    color: #5D6770;
+  }
+}
+
+
+@media (min-width: 600px) {
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .body {
+    height: 100%;
+  }
+
+  .logo {
+    background: url('logo.png');
+    height: 100px;
+    margin-top: 4%;
+    width: 95%;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+  }
+
+  .logo p {
+    color: white;
+
+    padding: auto;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 15px;
+    padding-left: 5%;
+  }
+
+
+  .item {
+    margin-top: 5%;
+  }
+
+  .item li {
+    list-style: none;
+    color: #003557;
+    font-size: 23px;
+    text-align: center;
+    line-height: 28px;
+  }
+
+  .detail {
+    color: #858887;
+    font-family: 'Lato', sans-serif;
+  }
+
+
+  .notFound {
+    text-align: center;
+    margin-top: 5%;
+  }
+
+  .notFound img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .notFound p {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    color: #5D6770;
+
+}
