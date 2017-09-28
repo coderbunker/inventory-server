@@ -1,0 +1,29 @@
+{
+  "name": "inventory-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint *.js",
+    "check": "npm ls > /dev/null"
+  },
+  "pre-commit": [ "lint", "check" ],
+  "author": "Alex Miller",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "googleapis": "^21.3.0",
+    "url-regex": "^4.1.1",
+    "uuid-regexp": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "pre-commit": "^1.2.2"
+  }
+}
