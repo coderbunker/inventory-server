@@ -49,7 +49,7 @@ app.get('/:id', (req, res) => {
       let listItem = '';
       if (matchedItem) {
         for (let i = 0; i < rows[0].length; i += 1) {
-          if (matchedItem[i].length > 1) {
+          if (matchedItem[i] && (matchedItem[i].length > 1)) {
             let text = matchedItem[i];
             const newUrl = text.match(urlRegex());
             if (newUrl) {
