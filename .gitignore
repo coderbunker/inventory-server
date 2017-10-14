@@ -62,3 +62,6 @@ typings/
 config
 
 .eslintrc.js
+
+#IDE
+/.idea
