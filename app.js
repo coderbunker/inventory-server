@@ -15,6 +15,23 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
 
+function renderTemplate(rows, matchedItem, result) {
+  let listItem = '';
+  for (let i = 0; i < rows[0].length; i += 1) {
+    if (matchedItem[i] && (matchedItem[i].length > 1)) {
+      let text = matchedItem[i];
+      const newUrl = text.match(urlRegex());
+      if (newUrl) {
+        newUrl.forEach((url) => {
+          text = text.replace(url, `<a href="${url}">${url}</a>`);
+        });
+      }
+      listItem += `<li>${result[0][i].toUpperCase()}: <span class="detail">${text}</span></li>`;
+    }
+  }
+  return listItem;
+}
+
 app.get('/:id', (req, res) => {
   const sheets = google.sheets('v4');
   sheets.spreadsheets.values.get({
@@ -45,25 +62,11 @@ app.get('/:id', (req, res) => {
           return uuid().exec(item)[0] === req.params.id;
         }
       });
-
-      let listItem = '';
       if (matchedItem) {
-        for (let i = 0; i < rows[0].length; i += 1) {
-          if (matchedItem[i] && (matchedItem[i].length > 1)) {
-            let text = matchedItem[i];
-            const newUrl = text.match(urlRegex());
-            if (newUrl) {
-              newUrl.forEach((url) => {
-                text = text.replace(url, `<a href="${url}">${url}</a>`);
-              });
-            }
-            listItem += `<li>${result[0][i].toUpperCase()}: <span class="detail">${text}</span></li>`;
-          }
-        }
-        res.render('item', { item: listItem });
+        res.render('item', { item: renderTemplate(rows, matchedItem, result) });
       } else {
         res.render('notFound', {
-          item: listItem,
+          item: '',
           id: req.params.id,
         });
       }
