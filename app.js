@@ -21,22 +21,24 @@ function makeClickable(text) {
   if (newUrl) {
     newUrl.forEach((url) => {
       newText = text.replace(url, `<a href="${url}">${url}</a>`);
-
-      // text = text.replace(url, `<a href="${url}">${url}</a>`);
     });
   }
   return newText;
 }
 
-function renderTemplate(values, labels) {
+function createRenderObj(val, lab) {
+  const renderObj = {
+    label: lab,
+    value: val,
+  };
+  return renderObj;
+}
+
+function renderTemplate(obj) {
   let listItem = '';
-  for (let i = 0; i < labels.length; i += 1) {
-    const renderObj = {
-      label: labels,
-      value: values,
-    };
-    if (renderObj.value[i] && (renderObj.value[i].length > 1)) {
-      listItem += `<li>${renderObj.label[i].toUpperCase()}: <span class="detail">${makeClickable(renderObj.value[i])}</span></li>`;
+  for (let i = 0; i < obj.label.length; i += 1) {
+    if (obj.value[i] && (obj.value[i].length > 1)) {
+      listItem += `<li>${obj.label[i].toUpperCase()}: <span class="detail">${makeClickable(obj.value[i])}</span></li>`;
     }
   }
   return listItem;
@@ -73,7 +75,7 @@ app.get('/:id', (req, res) => {
         }
       });
       if (matchedItem) {
-        res.render('item', { item: renderTemplate(matchedItem, result[0]) });
+        res.render('item', { item: renderTemplate(createRenderObj(matchedItem, result[0])) });
       } else {
         res.render('notFound', {
           item: '',
