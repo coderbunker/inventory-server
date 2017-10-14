@@ -15,18 +15,28 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
 
-function renderTemplate(rows, matchedItem, result) {
+function makeClickable(text) {
+  let newText = text;
+  const newUrl = newText.match(urlRegex());
+  if (newUrl) {
+    newUrl.forEach((url) => {
+      newText = text.replace(url, `<a href="${url}">${url}</a>`);
+
+      // text = text.replace(url, `<a href="${url}">${url}</a>`);
+    });
+  }
+  return newText;
+}
+
+function renderTemplate(values, labels) {
   let listItem = '';
-  for (let i = 0; i < rows[0].length; i += 1) {
-    if (matchedItem[i] && (matchedItem[i].length > 1)) {
-      let text = matchedItem[i];
-      const newUrl = text.match(urlRegex());
-      if (newUrl) {
-        newUrl.forEach((url) => {
-          text = text.replace(url, `<a href="${url}">${url}</a>`);
-        });
-      }
-      listItem += `<li>${result[0][i].toUpperCase()}: <span class="detail">${text}</span></li>`;
+  for (let i = 0; i < labels.length; i += 1) {
+    const renderObj = {
+      label: labels,
+      value: values,
+    };
+    if (renderObj.value[i] && (renderObj.value[i].length > 1)) {
+      listItem += `<li>${renderObj.label[i].toUpperCase()}: <span class="detail">${makeClickable(renderObj.value[i])}</span></li>`;
     }
   }
   return listItem;
@@ -63,7 +73,7 @@ app.get('/:id', (req, res) => {
         }
       });
       if (matchedItem) {
-        res.render('item', { item: renderTemplate(rows, matchedItem, result) });
+        res.render('item', { item: renderTemplate(matchedItem, result[0]) });
       } else {
         res.render('notFound', {
           item: '',
