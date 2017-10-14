@@ -59,9 +59,6 @@ typings/
 
 .DS_Store
 
-config
-
-.eslintrc.js
 
 #IDE
 /.idea
