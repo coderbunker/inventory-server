@@ -37,8 +37,6 @@ function findEquipment(uuid, callback) {
   });
 }
 
-// export { findUuid };
 module.exports = {
   findEquipment,
 };
-// export default findUuid;

@@ -1,5 +1,5 @@
 const express = require('express');
-const urlRegex = require('url-regex');
+// const urlRegex = require('url-regex');
 const googleSpreadsheet = require('./googleSpreadsheet');
 
 const app = express();
@@ -12,41 +12,29 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
 
-function makeClickable(text) {
-  const newUrl = text.match(urlRegex());
-  if (!newUrl) {
-    return text;
-  }
-
-  let newText = text;
-  newUrl.forEach((url) => {
-    newText = text.replace(url, `<a href="${url}">${url}</a>`);
-  });
-  return newText;
-}
-
-
-function renderTemplate(o) {
-  let listItem = '';
-  for (const k in o) {
-    if (o[k]) {
-      listItem += `<li>${k.toUpperCase()}: <span class="detail">${makeClickable(o[k])}</span></li>`;
-    }
-  }
-  return listItem;
-}
-
+// function makeClickable(text) {
+//   const newUrl = text.match(urlRegex());
+//   if (!newUrl) {
+//     return text;
+//   }
+//
+//   let newText = text;
+//   newUrl.forEach((url) => {
+//     newText = text.replace(url, `<a href="${url}">${url}</a>`);
+//   });
+//   return newText;
+// }
 
 app.get('/:id', (req, res) => {
   googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
     if (!matchedItem) {
       res.render('notFound', {
-        ite1m: '',
+        item: '',
         id: req.params.id,
       });
       return;
     }
-    res.render('item', { item: renderTemplate(matchedItem) });
+    res.render('item', matchedItem);
   });
 });
 
