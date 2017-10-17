@@ -133,19 +133,71 @@
     color: #5D6770;
 
 }
+
 .itemCard{
 border: 1px solid orange;
 /*height: auto;*/
 overflow: hidden;
 }
 .titleBar{
-  border: 2px solid green;
-
+  /*border: 2px solid green;*/
 }
 .statusIcon{
+margin-top: 1em;
+
+}
+.glyphicon{
+ font-size: 3em;
 }
 .itemName{
   text-align: center;
 }
-.statusState{
+
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.helpSection {
+  background-color: #E55126;
+}
+
+.skill-js {
+  background-color: #E5A227;
+}
+
+.skill-jquery {
+  background-color: #0C73B8;
+}
+
+.helpSection,
+.skill-js,
+.skill-jquery {
+  width: 100%;
+  padding: 1em 3em 2em 2em;
+  margin: 0.5em;
+  color: whitesmoke;
+}
+
+.projects-button {
+  padding: 0.75em 1.25em;
+  background-color: whitesmoke;
+  opacity: 0.9;
+  width: 10em;
+  color: black;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.projects {
+  margin: 1em 0;
+}
+
+.active {
+  background-color: #333333;
+  color: whitesmoke;
 }
