@@ -133,3 +133,19 @@
     color: #5D6770;
 
 }
+.itemCard{
+border: 1px solid orange;
+/*height: auto;*/
+overflow: hidden;
+}
+.titleBar{
+  border: 2px solid green;
+
+}
+.statusIcon{
+}
+.itemName{
+  text-align: center;
+}
+.statusState{
+}

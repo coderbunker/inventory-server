@@ -34,6 +34,7 @@ app.get('/:id', (req, res) => {
       });
       return;
     }
+    console.log(matchedItem);
     res.render('item', matchedItem);
   });
 });

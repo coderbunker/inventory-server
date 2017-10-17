@@ -1,14 +1,38 @@
-    <% include ./partials/header %>
-
-        <div class="item">
-        </div>
-    <h1> <%- fixture %></h1>
-        <%- model %>
-    <%- picture %>
-        <%- HOWTO %>
-    <%- Troubleshooting %>
-    <%- uuid %>
-    <%- status %>
-    <%- details %>
-
-    <% include ./partials/footer %>
+<% include ./partials/header %>
+	<div class="itemCard well">
+		<div class="titleBar col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="statusIcon col-xs-1 col-sm-1 col-md-1 col-lg-1">
+				<% if (status  === 'bad') { %>
+					<span class="glyphicon glyphicon-remove-sign" alt="status bad"></span>
+					 <% }else if (status  === 'good') { %>
+						 <span class="glyphicon glyphicon-ok-sign" alt="status good"></span>
+					<% }else{ %>
+						 <span class="glyphicon glyphicon-question-sign" alt="status unknown"></span>
+						 <%}%>
+			</div>
+			<div class="itemName col-xs-10 col-sm-10 col-md-10 col-lg-10">
+				<h1> <%- fixture.toUpperCase() %> </h1>
+				<%- model.toLowerCase() %>
+			</div>
+			<div class="statusState col-xs-1 col-sm-1 col-md-1 col-lg-1">
+				<%#if no value prepend "unknown" %>
+				Status: <%- status %>
+			</div>
+		</div>
+		<div class = "itemInfoCard col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+				<img src=" <%- picture %>" alt=" <%- fixture %> "/>
+			</div>
+			<div class = " col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+				<h3>How To:</h3>
+				<%- HOWTO %>
+				<h3>Troubleshooting:</h3>
+				<%- Troubleshooting %>
+				<h3>UUID:</h3>
+				<%- uuid %>
+				<h3>Details:</h3>
+				<%- details %>
+			</div>
+		</div>
+	</div>
+<% include ./partials/footer %>
