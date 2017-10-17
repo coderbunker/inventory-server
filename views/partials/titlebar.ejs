@@ -1,0 +1,18 @@
+<div class="titleBar well col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="statusIcon col-xs-1 col-sm-1 col-md-1 col-lg-1">
+    <% if (status  === 'bad') { %>
+      <span class="glyphicon glyphicon-remove-sign" title="Status: <%- status %>" alt="<%- status %>" style="color:red"></span>
+       <% }else if (status  === 'good') { %>
+         <span class="glyphicon glyphicon-ok-sign" title="Status: <%- status %>" alt="<%- status %>" style="color:green"</span>
+      <% }else{ %>
+         <span class="glyphicon glyphicon-question-sign" title="Status: unknown" alt="status unknown"></span>
+         <%}%>
+  </div>
+  <div class="itemName col-xs-10 col-sm-10 col-md-10 col-lg-10">
+    <h1> <%- fixture.toUpperCase() %> </h1>
+    <%- model.toLowerCase() %>
+  </div>
+  <div class="statusState col-xs-1 col-sm-1 col-md-1 col-lg-1">
+    <%#WILL LIKELY NOT NEED THIS DIV %>
+  </div>
+</div>
