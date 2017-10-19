@@ -64,18 +64,15 @@
   }
 }
 
-
 @media (min-width: 600px) {
   body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
   }
-
   .body {
     height: 100%;
   }
-
   .logo {
     background: url('logo.png');
     height: 100px;
@@ -87,22 +84,17 @@
     position: relative;
 
   }
-
   .logo p {
     color: white;
-
     padding: auto;
     font-size: 30px;
     text-align: center;
     padding-top: 15px;
     padding-left: 5%;
   }
-
-
   .item {
     margin-top: 5%;
   }
-
   .item li {
     list-style: none;
     color: #003557;
@@ -110,41 +102,32 @@
     text-align: center;
     line-height: 28px;
   }
-
   .detail {
     color: #858887;
     font-family: 'Lato', sans-serif;
   }
-
-
   .notFound {
     text-align: center;
     margin-top: 5%;
   }
-
   .notFound img {
     width: 200px;
     height: 200px;
   }
-
   .notFound p {
     font-family: 'Lato', sans-serif;
     font-size: 20px;
     color: #5D6770;
-
 }
 
 .itemCard{
-border: 1px solid orange;
-/*height: auto;*/
+margin-top: 1em;
 overflow: hidden;
 }
 .titleBar{
-  /*border: 2px solid green;*/
 }
 .statusIcon{
 margin-top: 1em;
-
 }
 .glyphicon{
  font-size: 3em;
@@ -152,52 +135,52 @@ margin-top: 1em;
 .itemName{
   text-align: center;
 }
-
 .dropdown {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
+img{
+  border-radius: 10px;
+}
+.imgSection{
+  text-align: center;
+  /*background-color: #F8F8FF;*/
+}
 .helpSection {
-  background-color: #E55126;
+  /*background-color: #E55126;*/
 }
-
-.skill-js {
-  background-color: #E5A227;
+.extraSection {
+  /*background-color: #E5A227;*/
 }
-
-.skill-jquery {
-  background-color: #0C73B8;
+.howSection {
+  /*background-color: #0C73B8;*/
 }
-
+.imgSection,
 .helpSection,
-.skill-js,
-.skill-jquery {
+.extraSection,
+.howSection {
+  border-radius: 10px;
   width: 100%;
   padding: 1em 3em 2em 2em;
   margin: 0.5em;
-  color: whitesmoke;
+  background-color:#1874CD;
 }
-
-.projects-button {
-  padding: 0.75em 1.25em;
+.sectionTitle {
+  border-radius: 10px;
+  padding-left: 1em;
   background-color: whitesmoke;
   opacity: 0.9;
-  width: 10em;
+  width: 100%;
   color: black;
 }
-
 ul {
   list-style: none;
   padding: 0;
 }
-
-.projects {
+.lists {
+  border-radius: 10px;
   margin: 1em 0;
-}
-
-.active {
-  background-color: #333333;
-  color: whitesmoke;
+  background-color: whitesmoke;
+  opacity: 0.9;
 }

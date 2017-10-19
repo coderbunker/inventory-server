@@ -1,10 +1,27 @@
-<div class = "itemImgInfo col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <div class="mainImg col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-    <img src=" <%- picture %>" title=" <%- fixture %> " alt=" <%- fixture %> "/>
-  </div>
-  <div class = "mainInfo col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-    <h3>How To:</h3>
-    <%- HOWTO %>
-    <% include ./dropdown %>
-  </div>
-</div>
+    <div class="dropdown col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="imgSection">
+          <img src=" <%- picture %> " title=" <%- fixture %> " alt=" <%- fixture %> "/>
+        </div>
+        <div class='howSection'>
+            <div class='sectionTitle'><h3>How To</h3></div>
+            <div class='col-xs-1 col-sm-1 col-md-3 col-lg-6'></div>
+            <ul class='lists col-xs-11 col-sm-11 col-md-9 col-lg-6'>
+              <li> <%- HOWTO %> </li>
+            </ul>
+        </div>
+        <div class='helpSection'>
+              <div class='sectionTitle'><h3>Need Help</h3></div>
+              <div class='col-xs-1 col-sm-1 col-md-3 col-lg-6'></div>
+              <ul class='lists col-xs-11 col-sm-11 col-md-9 col-lg-6'>
+                <li> <%- Troubleshooting %> </li>
+              </ul>
+        </div>
+        <div class='extraSection'>
+              <div class='sectionTitle'><h3>Extra Info</h3></div>
+              <div class=' col-xs-1 col-sm-1 col-md-3 col-lg-6'></div>
+              <ul class='lists col-xs-11 col-sm-11 col-md-9 col-lg-6'>
+                <li> <%- details %> </li>
+                <li> <%- uuid %> </li>
+              </ul>
+        </div>
+    </div>
