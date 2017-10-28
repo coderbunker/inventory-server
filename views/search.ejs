@@ -7,7 +7,7 @@
 						<img class="searchImg" src=" <%- matches[i].picture %> " title=" <%- matches[i].fixture %> " alt=" <%- matches[i].fixture %> " />
 					</div>
 					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-						<span> <%- matches[i].fixture.toUpperCase().bold() %> </span> -
+						<span> <a href="/<%- matches[i].uuid%>"<%- matches[i].fixture.toUpperCase().bold() %> </a> </span> -
 						<span> <%- matches[i].model.toUpperCase().bold() %> </span>
 						<br/>
 						<span> <%- matches[i].floor %> </span> >
