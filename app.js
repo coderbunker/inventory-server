@@ -46,7 +46,10 @@ const testEquipmentList = [
   ];
 
 app.get('/search', (req, res) => {
-  res.render('search', {matches:testEquipmentList});
+  googleSpreadsheet.findEquipment("6FB3B0CA-9658-4FCB-A621-891B2D5D5AA6", (matchedItem) => {
+    console.log(matchedItem);
+      res.render('search', {matches:[matchedItem]});
+  });
 });
 
 app.get('/:id', (req, res) => {
