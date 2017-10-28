@@ -1,18 +1,19 @@
 <div class="titleBar well col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <div class="statusIcon col-xs-1 col-sm-1 col-md-1 col-lg-1">
-    <% if (status  === 'broken') { %>
-      <span class="glyphicon glyphicon-wrench" title="Status: <%- status %>" alt="<%- status %>" style="color:red"></span>
-       <% }else if (status  === 'working') { %>
-         <span class="glyphicon glyphicon-ok-sign" title="Status: <%- status %>" alt="<%- status %>" style="color:green"</span>
-      <% }else{ %>
-         <span class="glyphicon glyphicon-question-sign" title="Status: unknown" alt="status unknown"></span>
-         <%}%>
-  </div>
-  <div class="itemName col-xs-10 col-sm-10 col-md-10 col-lg-10">
-    <span id="itemTitle"> <%- fixture.toUpperCase().bold() %> </span>
-    <%- model.toLowerCase() %>
-  </div>
-  <div class="statusState col-xs-1 col-sm-1 col-md-1 col-lg-1">
-    <%#WILL LIKELY NOT NEED THIS DIV %>
-  </div>
+    <div class="imgBox col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        <img src=" <%- picture %> " id="itemImg" title=" <%- fixture %> " alt=" <%- fixture %> " />
+    </div>
+    <div class="itemName col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <span id="itemTitle"> <%- fixture.toUpperCase().bold() %> </span>
+        <%- model.toLowerCase() %>
+    </div>
+    <div class="statusIcon col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        <% if (status  === 'broken') { %>
+            <span class="glyphicon glyphicon-wrench" title="Status: <%- status %>" alt="<%- status %>" style="color:red"></span>
+            <% }else if (status  === 'working') { %>
+                <span class="glyphicon glyphicon-ok-sign" title="Status: <%- status %>" alt="<%- status %>" style="color:green" </span>
+                <% }else{ %>
+                    <span class="glyphicon glyphicon-question-sign" title="Status: unknown" alt="status unknown"></span>
+                    <%}%>
+    </div>
+
 </div>
