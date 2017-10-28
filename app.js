@@ -25,6 +25,30 @@ app.get('/favicon.ico', (req, res) => {
 //   return newText;
 // }
 
+const testEquipmentList = [
+  {
+    fixture: "printer",
+    model: "XJ220",
+    status: "broken",
+    picture: "https://static1.squarespace.com/static/54e8ba93e4b07c3f655b452e/t/56c2a04520c64707756f4267/1493764650017/",
+    floor: "Bunker",
+    room: "classroom",
+    location: "in front of you",
+  },
+  {
+      fixture: "monitor",
+      model: "3D",
+      status: "working",
+      floor: "Bunker",
+      room: "classroom",
+      location: "right behind you",
+    }
+  ];
+
+app.get('/search', (req, res) => {
+  res.render('search', {matches:testEquipmentList});
+});
+
 app.get('/:id', (req, res) => {
   googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
     if (!matchedItem) {

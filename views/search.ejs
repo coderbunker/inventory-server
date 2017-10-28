@@ -1,0 +1,32 @@
+<% include ./partials/header %>
+	<ul>
+		<% for(var i=0; i < matches.length; i++){ %>
+			<li>
+				<div class="well col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<img class="searchImg" src=" <%- matches[i].picture %> " title=" <%- matches[i].fixture %> " alt=" <%- matches[i].fixture %> " />
+					</div>
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+						<span> <%- matches[i].fixture.toUpperCase().bold() %> </span> -
+						<span> <%- matches[i].model.toUpperCase().bold() %> </span>
+						<br/>
+						<span> <%- matches[i].floor %> </span> >
+						<span> <%- matches[i].room %> </span> >
+						<span> <%- matches[i].location %> </span>
+
+						</br/>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<% if (matches[i].status  === 'broken') { %>
+							<span class="searchImg glyphicon glyphicon-wrench" title="Status: <%- matches[i].status %>" alt="<%- matches[i].status %>" style="color:red"></span>
+							<% }else if (matches[i].status  === 'working') { %>
+								<% }else{ %>
+									<span class="searchImg glyphicon <glyp></glyp>hicon-question-sign" title="Status: unknown" alt="status unknown"></span>
+									<%}%>
+					</div>
+				</div>
+			</li>
+			<%	} %>
+
+	</ul>
+	<% include ./partials/footer %>
