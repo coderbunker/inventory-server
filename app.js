@@ -46,9 +46,9 @@ const testEquipmentList = [
   ];
 
 app.get('/search', (req, res) => {
-  googleSpreadsheet.findEquipment("6FB3B0CA-9658-4FCB-A621-891B2D5D5AA6", (matchedItem) => {
-    console.log(matchedItem);
-      res.render('search', {matches:[matchedItem]});
+  googleSpreadsheet.findAllEquipment((matches) => {
+      console.log('hourray')
+      res.render('search', {matches:matches});
   });
 });
 
@@ -62,7 +62,7 @@ app.get('/:id', (req, res) => {
       return;
     }
     console.log(matchedItem);
-    res.render('item', matchedItem);
+    res.render('item', matchedItem[0]);
   });
 });
 
