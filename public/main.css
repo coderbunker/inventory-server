@@ -35,13 +35,15 @@
     overflow: hidden;
 }
 
-.searchImg {
+
+/*.searchImg {
     height: 5vw;
     font-size: 5vw;
-}
+}*/
 
-#itemImg {
+.itemImg {
     height: 10vw;
+    font-size: 5vw;
 }
 
 .itemTitle {
@@ -87,3 +89,8 @@ h3 {
 li {
     padding: 5px;
 }*/
+
+5px;
+
+}
+*/
