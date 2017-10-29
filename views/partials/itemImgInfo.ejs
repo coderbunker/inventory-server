@@ -1,47 +1,27 @@
-<div class="dropdown col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-    <div class='howSection col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <div class='sectionTitle'>
-            <h3>How To</h3></div>
-        <div class='col-xs-1 col-sm-1 col-md-3 col-lg-6'></div>
-        <ul class='lists col-xs-11 col-sm-11 col-md-9 col-lg-6'>
-            <li>
-                <%- HOWTO %>
-            </li>
-        </ul>
-    </div>
-    <div class='helpSection col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <div class='sectionTitle'>
-            <h3>Need Help</h3></div>
-        <div class='col-xs-1 col-sm-1 col-md-3 col-lg-6'></div>
-        <ul class='lists col-xs-11 col-sm-11 col-md-9 col-lg-6'>
-            <li>
-                <%- Troubleshooting %>
-            </li>
-        </ul>
-    </div>
-    <div class='extraSection col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <div class='sectionTitle'>
-            <h3>Extra Info</h3></div>
-        <div class=' col-xs-1 col-sm-1 col-md-3 col-lg-6'></div>
-        <ul class='lists col-xs-11 col-sm-11 col-md-9 col-lg-6'>
-            <li>
-                <%- details %>
-            </li>
-            <li>
-                <%- uuid %>
-            </li>
-        </ul>
-    </div>
-    <div class='moreSection col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <div class='sectionTitle'>
-            <h3>Stuffs</h3>
+<div class="infoBox col-xs-12">
+    <article class="col-xs-12">
+        <h3>How To</h3>
+        <div class="infoSection col-xs-11 col-xs-offset-1">
+            <%- HOWTO %>
         </div>
-        <div class=' col-xs-1 col-sm-1 col-md-3 col-lg-6'></div>
-        <ul class='lists col-xs-11 col-sm-11 col-md-9 col-lg-6'>
-            <li>
-                <%- uuid%>
-            </li>
-        </ul>
-    </div>
+    </article>
+    <article class="col-xs-12">
+        <h3>Need Help</h3>
+        <div class='infoSection col-xs-11 col-xs-offset-1'>
+            <%- Troubleshooting %>
+        </div>
+    </article>
+    <article class="col-xs-12">
+        <h3>Extra Info</h3>
+        <div class='infoSection col-xs-11 col-xs-offset-1'>
+            <%- details %>
+                <%- uuid %>
+        </div>
+    </article>
+    <article class="col-xs-12">
+        <h3>Stuffs</h3>
+        <div class='infoSection col-xs-11 col-xs-offset-1'>
+            PLACEHOLDER: LINKS TO OTHER STUFF HERE
+        </div>
+    </article>
 </div>

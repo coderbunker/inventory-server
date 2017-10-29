@@ -35,6 +35,11 @@
     overflow: hidden;
 }
 
+.searchImg {
+    height: 5vw;
+    font-size: 5vw;
+}
+
 #itemImg {
     height: 10vw;
 }
@@ -44,44 +49,41 @@
     text-align: center;
 }
 
-.searchImg {
-    height: 5vw;
-    font-size: 5vw;
-}
-
-.dropdown {
+.infoBox {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.imgSection, .helpSection, .extraSection, .howSection {
-    border-radius: 10px;
+article, h3, .infoSection {
+    /*border-radius: 10px;*/
+}
+
+article {
     padding: 1em 2em;
     margin-bottom: 1em;
     background-color: #1874CD;
 }
 
-.sectionTitle {
-    border-radius: 10px;
+h3 {
     padding-left: 1em;
     background-color: whitesmoke;
     opacity: 0.9;
     color: black;
 }
 
-ul {
+.infoSection {
+    margin: 1em 0;
+    background-color: whitesmoke;
+    opacity: 0.9;
+}
+
+
+/*ul {
     list-style: none;
     padding: 0;
 }
 
 li {
     padding: 5px;
-}
-
-.lists {
-    border-radius: 10px;
-    margin: 1em 0;
-    background-color: whitesmoke;
-    opacity: 0.9;
-}
+}*/
