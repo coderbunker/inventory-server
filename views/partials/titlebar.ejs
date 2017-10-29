@@ -1,19 +1,17 @@
-<div class="titleBar well col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="imgBox col-xs-2 col-sm-2 col-md-2 col-lg-2">
+<div class="well col-xs-12">
+    <div class="col-xs-2">
         <img src=" <%- picture %> " id="itemImg" title=" <%- fixture %> " alt=" <%- fixture %> " />
     </div>
-    <div class="itemName col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        <span id="itemTitle"> <%- fixture.toUpperCase().bold() %> </span>
-        <%- model.toLowerCase() %>
+    <div class="itemTitle col-xs-8">
+        <h4> <%- fixture.toUpperCase().bold() %> </h4>
+        <%- model.toLowerCase().italics() %>
     </div>
-    <div class="statusIcon col-xs-2 col-sm-2 col-md-2 col-lg-2">
+    <div class="col-xs-2">
         <% if (status  === 'broken') { %>
             <span class="glyphicon glyphicon-wrench" title="Status: <%- status %>" alt="<%- status %>" style="color:red"></span>
             <% }else if (status  === 'working') { %>
-                <span class="glyphicon glyphicon-ok-sign" title="Status: <%- status %>" alt="<%- status %>" style="color:green" </span>
                 <% }else{ %>
-                    <span class="glyphicon glyphicon-question-sign" title="Status: unknown" alt="status unknown"></span>
+                    <span class="glyphicon glyphicon-question-sign" title="Status: unknown" alt="status unknown" style="color:grey"></span>
                     <%}%>
     </div>
-
 </div>

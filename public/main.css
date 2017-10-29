@@ -35,14 +35,13 @@
     overflow: hidden;
 }
 
-.titleBar {
-    text-align: center;
+#itemImg {
+    height: 10vw;
 }
 
-.itemName {}
-
-#itemTitle {
-    font-size: 5vw;
+.itemTitle {
+    /*font-size: 5vw;*/
+    text-align: center;
 }
 
 .searchImg {
@@ -50,32 +49,11 @@
     font-size: 5vw;
 }
 
-#itemImg {
-    height: 10vw;
-}
-
 .dropdown {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
-
-/*
-.imgSection {
-    text-align: center;
-    background-color: #F8F8FF;
-}
-.helpSection {
-    background-color: #E55126;
-}
-.extraSection {
-    background-color: #E5A227;
-}
-.howSection {
-    background-color: #0C73B8;
-}
-*/
 
 .imgSection, .helpSection, .extraSection, .howSection {
     border-radius: 10px;
