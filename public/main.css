@@ -30,31 +30,32 @@
     }
 }
 
-.itemCard {
+.resultContainer {
     margin-top: 1em;
     overflow: hidden;
 }
 
 .itemImg {
-  margin-left: -3vw;
-  width: 300%;
-  font-size: 11vw;
+    margin-left: -3vw;
+    width: 300%;
+    font-size: 11vw;
 }
 
-@media screen and (min-width: 500px){
-  .itemImg {
-    width: 100%;
-    font-size: 9vw;
-  }
+@media screen and (min-width: 500px) {
+    .itemImg {
+        width: 100%;
+        font-size: 9vw;
+    }
 }
 
 .itemTitle {
     text-align: center;
-  /*padding-right: 1em;*/
+    /*padding-right: 1em;*/
 }
-.location{
-  text-align: center;
-  margin: 10px 0px -10px 0px;
+
+.location {
+    text-align: center;
+    margin: 10px 0px -10px 0px;
 }
 
 .infoBox {
@@ -86,7 +87,7 @@ h3 {
     opacity: 0.9;
 }
 
-.searchResultList{
-  list-style: none;
-  padding: 0;
+.searchResultList {
+    list-style: none;
+    padding: 0;
 }
