@@ -23,8 +23,8 @@
         text-align: left;
         font-size: 1.5em;
         padding-top: 13px;
-        padding-left: 0px;
-        margin-left: 0px;
+        padding-left: 0;
+        margin-left: 0;
         white-space: nowrap;
         overflow: hidden;
     }
@@ -35,20 +35,26 @@
     overflow: hidden;
 }
 
-
-/*.searchImg {
-    height: 5vw;
-    font-size: 5vw;
-}*/
-
 .itemImg {
-    height: 10vw;
-    font-size: 5vw;
+  margin-left: -3vw;
+  width: 300%;
+  font-size: 11vw;
+}
+
+@media screen and (min-width: 500px){
+  .itemImg {
+    width: 100%;
+    font-size: 9vw;
+  }
 }
 
 .itemTitle {
-    /*font-size: 5vw;*/
     text-align: center;
+  /*padding-right: 1em;*/
+}
+.location{
+  text-align: center;
+  margin: 10px 0px -10px 0px;
 }
 
 .infoBox {
@@ -80,17 +86,7 @@ h3 {
     opacity: 0.9;
 }
 
-
-/*ul {
-    list-style: none;
-    padding: 0;
+.searchResultList{
+  list-style: none;
+  padding: 0;
 }
-
-li {
-    padding: 5px;
-}*/
-
-5px;
-
-}
-*/
