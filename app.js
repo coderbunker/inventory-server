@@ -25,35 +25,43 @@ app.get('/favicon.ico', (req, res) => {
 //   return newText;
 // }
 
-const testEquipmentList = [
-  {
-    fixture: "printer",
-    model: "XJ220",
-    status: "broken",
-    picture: "https://static1.squarespace.com/static/54e8ba93e4b07c3f655b452e/t/56c2a04520c64707756f4267/1493764650017/",
-    floor: "Bunker",
-    room: "classroom",
-    location: "in front of you",
-  },
-  {
-      fixture: "monitor",
-      model: "3D",
-      status: "working",
-      floor: "Bunker",
-      room: "classroom",
-      location: "right behind you",
-    }
-  ];
+// const testEquipmentList = [
+//   {
+//     fixture: "printer",
+//     model: "XJ220",
+//     status: "broken",
+//     picture: "https://static1.squarespace.com/static/54e8ba93e4b07c3f655b452e/t/56c2a04520c64707756f4267/1493764650017/",
+//     floor: "Bunker",
+//     room: "classroom",
+//     location: "in front of you",
+//   },
+//   {
+//       fixture: "monitor",
+//       model: "3D",
+//       status: "working",
+//       floor: "Bunker",
+//       room: "classroom",
+//       location: "right behind you",
+//     }
+//   ];
+
+// app.get('/floor', (req, res) => {
+//   googleSpreadsheet.findEquipment((floor, matches) => {
+//       // console.log(matches);
+//       res.render('search', {matches:matches});
+//   });
+// });
 
 app.get('/search', (req, res) => {
   googleSpreadsheet.findAllEquipment((matches) => {
-      // console.log(matches);
-      res.render('search', {matches:matches});
+    // console.log(matches);
+    res.render('search', { matches: matches });
   });
 });
 
 app.get('/:id', (req, res) => {
   googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
+    // console.log('HERE: ', req.params.id);
     if (!matchedItem) {
       res.render('notFound', {
         item: '',
