@@ -41,15 +41,27 @@ function findAllEquipment(callback) {
     // console.log("arf: ", response.values);
     loadDatabase((rows) => {
         return callback(rows.map((row) => {
-            return rowToObject(row, rows[0]);
-        }));
+            return rowToObject(row, rows[0])
+            })
+      );
     });
 }
 
 function findEquipment(uuid, callback) {
     // console.log("arf: ", response.values);
+    // loadDatabase((rows) => {
+        // return callback([findColumn(rows, 'uuid', uuid)]);
+    // });
+    // OLD ^
+
     loadDatabase((rows) => {
-        return callback([findColumn(rows, 'uuid', uuid)]);
+        return callback(rows.map((row) => {
+            return rowToObject(row, rows[0])
+            }).filter((thing)=>{
+              console.log("hello Doug ", uuid);
+              return thing.uuid === uuid;
+        })
+      );
     });
 }
 

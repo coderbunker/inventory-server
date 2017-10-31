@@ -47,6 +47,7 @@ const testEquipmentList = [
 
 app.get('/search', (req, res) => {
   googleSpreadsheet.findAllEquipment((matches) => {
+      // console.log(matches);
       res.render('search', {matches:matches});
   });
 });
@@ -60,7 +61,7 @@ app.get('/:id', (req, res) => {
       });
       return;
     }
-     console.log(matchedItem);
+    //  console.log(matchedItem);
     res.render('item', matchedItem[0]);
   });
 });
