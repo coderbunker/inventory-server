@@ -9,77 +9,39 @@ app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/favicon.ico', (req, res) => {
-  res.status(204);
+    res.status(204);
 });
 
-// function makeClickable(text) {
-//   const newUrl = text.match(urlRegex());
-//   if (!newUrl) {
-//     return text;
-//   }
-//
-//   let newText = text;
-//   newUrl.forEach((url) => {
-//     newText = text.replace(url, `<a href="${url}">${url}</a>`);
-//   });
-//   return newText;
-// }
-
-// const testEquipmentList = [
-//   {
-//     fixture: "printer",
-//     model: "XJ220",
-//     status: "broken",
-//     picture: "https://static1.squarespace.com/static/54e8ba93e4b07c3f655b452e/t/56c2a04520c64707756f4267/1493764650017/",
-//     floor: "Bunker",
-//     room: "classroom",
-//     location: "in front of you",
-//   },
-//   {
-//       fixture: "monitor",
-//       model: "3D",
-//       status: "working",
-//       floor: "Bunker",
-//       room: "classroom",
-//       location: "right behind you",
-//     }
-//   ];
-
-// app.get('/floor', (req, res) => {
-//   googleSpreadsheet.findEquipment((floor, matches) => {
-//       // console.log(matches);
-//       res.render('search', {matches:matches});
-//   });
-// });
-
 app.get('/search', (req, res) => {
-  googleSpreadsheet.findAllEquipment((matches) => {
-    // console.log(matches);
-    res.render('search', { matches: matches });
-  });
+    googleSpreadsheet.findAllEquipment((matches) => {
+        console.log('using findAllEquipment callback');
+        res.render('search', {
+            matches: matches
+        });
+    });
 });
 
 app.get('/:id', (req, res) => {
-  googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
-    // console.log('HERE: ', req.params.id);
-    if (!matchedItem) {
-      res.render('notFound', {
-        item: '',
-        id: req.params.id,
-      });
-      return;
-    }
-    //  console.log(matchedItem);
-    res.render('item', matchedItem[0]);
-  });
+    googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
+        console.log('using findEquipment callback');
+        if (!matchedItem) {
+            res.render('notFound', {
+                item: '',
+                id: req.params.id,
+            });
+            return;
+        }
+        //  console.log(matchedItem);
+        res.render('item', matchedItem[0]);
+    });
 });
 
 app.get('/', (req, res) => {
-  res.redirect('https://cryptic-woodland-88390.herokuapp.com/');
+    res.redirect('https://cryptic-woodland-88390.herokuapp.com/');
 });
 
 const port = process.env.PORT || 1234;
 
 app.listen(port, () => {
-  console.log(`working on ${port}`);
+    console.log(`working on ${port}`);
 });
