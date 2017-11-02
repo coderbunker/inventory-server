@@ -11,10 +11,10 @@ app.use(express.static(`${__dirname}/public`));
 app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
-
+// TODO: REFACTOR > SEARCH & SEARCH/:ID ARE DOING THE SAME THING, MERGE THEM
 app.get('/search', (req, res) => {
-  googleSpreadsheet.findAllEquipment("", (matches) => {
-    console.log("SEARCH!!!: ", req.params);
+  // console.log("SEARCH!!!: ", req.params);
+  googleSpreadsheet.findAllEquipment(req.params.id, (matches) => {
     res.render('search', {
       matches: matches
     });
@@ -22,8 +22,8 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/search/:id', (req, res) => {
+  // console.log("SEARCH id!!!: ", req.params);
   googleSpreadsheet.findAllEquipment(req.params.id, (matches) => {
-    console.log("SEARCH FLOOR!!!: ", req.params);
     res.render('search', {
       matches: matches
     });

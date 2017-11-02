@@ -25,13 +25,9 @@ function loadDatabase(callback) {
 }
 
 function findAllEquipment(id, callback) {
+  // TODO: REFACTOR: RUN CALLBACK > ROWSTOOBECT > LOOP THROUGH OBJECTS AND GATHER CATEGORIES (IE FLOOR, BUSINESS, ETC)
   loadDatabase((rows) => {
     let newId = "";
-    if(id === ""){
-      return callback(rows.map((row) => {
-        return rowToObject(row, rows[0]);
-      }));
-    }else{
       switch(id){
         case "101":
         case "402":
@@ -44,11 +40,21 @@ function findAllEquipment(id, callback) {
         case "coworking":
           newId = "business";
           break;
+        case "big bedroom":
         case "classroom":
+        case "corridor":
+        case "entrance":
         case "kitchen":
-        case "meeting%20room":
-        case "open%20room":
-        case "painting%20gallery":
+        case "meeting room":
+        case "open room":
+        case "open space":
+        case "painting gallery":
+        case "piano room":
+        case "private office":
+        case "private office 4":
+        case "private office 6":
+        case "private office 6p":
+        case "serve room":
           newId = "room";
           break;
         case "Agora desk":
@@ -57,7 +63,7 @@ function findAllEquipment(id, callback) {
         case "fridge":
         case "Laptop":
         case "light":
-        case "ligt cover":
+        case "light cover":
         case "mobile whiteboard":
         case "monitor":
         case "office chairs":
@@ -76,33 +82,39 @@ function findAllEquipment(id, callback) {
         case "office appliance":
           newId = "category";
           break;
+        case "_":
+        case "?":
+        case "back":
+        case "bar":
+        case "between 2 sofas":
+        case "door":
+        case "kitchenette":
+        case "left":
+        case "minibar":
+        case "next to cupboard":
+        case "next to door":
+        case "next to office manager":
+        case "right":
+        case "under stand up desk":
+        case "wooden cabinet":
+          newId = "location";
+          break;
         default:
           return callback(rows.map((row) => {
             return rowToObject(row, rows[0]);
-          }));
+          }).splice(1, rows.length).sort(function(a, b){
+          return a.floor == b.floor ? 0 : + (a.floor > b.floor) || -1;
+          })
+        );
       }
       return callback(rows.map((row) => {
         return rowToObject(row, rows[0]);
-      }).filter((item) => {
-        return item[newId]  === id;
-         }));
-  }
-    // OLD
-    // if(id===""){
-    //   return callback(rows.map((row) => {
-    //     return rowToObject(row, rows[0]);
-    //   }));
-  // }else{
-  //   return callback(rows.map((row) => {
-  //     return rowToObject(row, rows[0]);
-// }).filter((item) => {
-  //   return item.floor === id;
-  //   }));
-// }
-// OLDER
-    //   return callback(rows.map((row) => {
-    //     return rowToObject(row, rows[0]);
-    //   }));
+        }).filter((item) => {
+        return item[newId] === id;
+        }).sort(function(a, b){
+        return a.floor == b.floor ? 0 : + (a.floor > b.floor) || -1;
+        })
+      );
   });
 }
 
@@ -114,7 +126,6 @@ function findEquipment(uuid, callback) {
       return item.uuid === uuid;
     }));
   });
-  // DONT KNOW HOW TO NEST findAllEquipment IN HERE
 }
 
 module.exports = {
