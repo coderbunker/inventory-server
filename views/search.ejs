@@ -1,7 +1,8 @@
 <% include ./partials/header %>
 	<div class="resultContainer well col-xs-12">
 		<ul class="searchResultList">
-			<% for(var i= 1; i < matches.length; i++){ %>
+			<%# CHECK IF THE 0 CAN BE CHANGED TO A 1 FOR ALL SEARCHES %>
+			<% for(var i= 0; i < matches.length; i++){ %>
 				<li>
 					<div class="well col-xs-12">
 						<div class="col-xs-2">
@@ -24,9 +25,9 @@
 										<%}%>
 						</div>
 						<div class="location col-xs-12">
-							<span> <%- matches[i].floor.toUpperCase() %> </span> >
-							<span> <%- matches[i].room.toLowerCase() %> </span> >
-							<span> <%- matches[i].location.toLowerCase() %> </span>
+							<span> <a href="/search/<%- matches[i].floor %>"> <%- matches[i].floor.toUpperCase() %> </a></span> >
+							<span> <a href="/search/<%- matches[i].room %>"> <%- matches[i].room.toLowerCase() %>  </a></span> >
+							<span> <a href="/search/<%- matches[i].location %>"> <%- matches[i].location.toLowerCase() %>  </a></span>
 						</div>
 					</div>
 				</li>

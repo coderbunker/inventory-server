@@ -9,39 +9,48 @@ app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/favicon.ico', (req, res) => {
-    res.status(204);
+  res.status(204);
 });
 
 app.get('/search', (req, res) => {
-    googleSpreadsheet.findAllEquipment((matches) => {
-        console.log('using findAllEquipment callback');
-        res.render('search', {
-            matches: matches
-        });
+  googleSpreadsheet.findAllEquipment("", (matches) => {
+    console.log("SEARCH!!!: ", req.params);
+    res.render('search', {
+      matches: matches
     });
+  });
+});
+
+app.get('/search/:id', (req, res) => {
+  googleSpreadsheet.findAllEquipment(req.params.id, (matches) => {
+    console.log("SEARCH FLOOR!!!: ", req.params);
+    res.render('search', {
+      matches: matches
+    });
+  });
 });
 
 app.get('/:id', (req, res) => {
-    googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
-        console.log('using findEquipment callback');
-        if (!matchedItem) {
-            res.render('notFound', {
-                item: '',
-                id: req.params.id,
-            });
-            return;
-        }
-        //  console.log(matchedItem);
-        res.render('item', matchedItem[0]);
-    });
+  googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
+    // console.log('using findEquipment callback, ', req.params.id);
+    if (!matchedItem) {
+      res.render('notFound', {
+        item: '',
+        id: req.params.id,
+      });
+      return;
+    }
+    //  console.log(matchedItem);
+    res.render('item', matchedItem[0]);
+  });
 });
 
 app.get('/', (req, res) => {
-    res.redirect('https://cryptic-woodland-88390.herokuapp.com/');
+  res.redirect('https://cryptic-woodland-88390.herokuapp.com/');
 });
 
 const port = process.env.PORT || 1234;
 
 app.listen(port, () => {
-    console.log(`working on ${port}`);
+  console.log(`working on ${port}`);
 });
