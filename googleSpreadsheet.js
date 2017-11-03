@@ -26,8 +26,24 @@ function loadDatabase(callback) {
 
 // TODO: REFACTOR: RUN CALLBACK > ROWSTOOBECT >
 // LOOP THROUGH OBJECTS AND GATHER CATEGORIES (IE FLOOR, BUSINESS, ETC)
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
+
 function findAllEquipment(id, callback) {
   loadDatabase((rows) => {
+    // !!!ATTEMPT
+
+    // callback(rows.map((row) =>
+    // console.log("id: ", id)
+    // console.log("row: ", row)
+    //   rowToObject(row, rows[0])).map((row) =>
+    //
+    //   console.log(getKeyByValue(row, id))
+    // ))
+
+    // !!!ATTEMPT
     let newId = '';
     switch (id) {
       case '101':
