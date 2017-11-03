@@ -33,6 +33,14 @@ function getKeyByValue(object, value) {
 
 function findAllEquipment(id, callback) {
   loadDatabase((rows) => {
+
+    let totalArr = rows.map((row) => rowToObject(row, rows[0]));
+
+    for(var i = 0; i < totalArr.length; i++){
+      console.log(getKeyByValue(totalArr[i], id));
+    }
+    // rows.map((row) => rowToObject(row, rows[0])).;
+
     // !!!ATTEMPT
 
     // callback(rows.map((row) =>
