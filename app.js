@@ -16,7 +16,7 @@ app.get('/search', (req, res) => {
   // console.log("SEARCH!!!: ", req.params);
   googleSpreadsheet.findAllEquipment(req.params.id, (matches) => {
     res.render('search', {
-      matches: matches
+      matches: matches,
     });
   });
 });
@@ -25,7 +25,7 @@ app.get('/search/:id', (req, res) => {
   // console.log("SEARCH id!!!: ", req.params);
   googleSpreadsheet.findAllEquipment(req.params.id, (matches) => {
     res.render('search', {
-      matches: matches
+      matches: matches,
     });
   });
 });
