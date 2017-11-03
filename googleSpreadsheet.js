@@ -24,115 +24,33 @@ function loadDatabase(callback) {
   });
 }
 
-// TODO: REFACTOR: RUN CALLBACK > ROWSTOOBECT >
-// LOOP THROUGH OBJECTS AND GATHER CATEGORIES (IE FLOOR, BUSINESS, ETC)
-
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
+// TODO: SORT BY FLOOR ONLY? WHAT ELSE?
+// TODO: NOIMG.PNG DISAPPEARS IF URL HAS ANY CHARACTER AFTER ...SEARCH (ex search/ or search/bed)
+// TODO: findAllEquipment IS MESSY NOW REFACTOR,
+// TODO: REMOVE SPLICE FROM LAST callback (FIND ANOTHER WAY TO REMOVE FIRST EMPTY OBJ)
 function findAllEquipment(id, callback) {
   loadDatabase((rows) => {
-
-    let totalArr = rows.map((row) => rowToObject(row, rows[0]));
-
-    for(var i = 0; i < totalArr.length; i++){
-      console.log(getKeyByValue(totalArr[i], id));
-    }
-    // rows.map((row) => rowToObject(row, rows[0])).;
-
-    // !!!ATTEMPT
-
-    // callback(rows.map((row) =>
-    // console.log("id: ", id)
-    // console.log("row: ", row)
-    //   rowToObject(row, rows[0])).map((row) =>
-    //
-    //   console.log(getKeyByValue(row, id))
-    // ))
-
-    // !!!ATTEMPT
     let newId = '';
-    switch (id) {
-      case '101':
-      case '402':
-      case '503':
-      case '701':
-      case 'bunker':
-        newId = 'floor';
-        break;
-      case 'coliving':
-      case 'coworking':
-        newId = 'business';
-        break;
-      case 'big bedroom':
-      case 'classroom':
-      case 'corridor':
-      case 'entrance':
-      case 'kitchen':
-      case 'meeting room':
-      case 'open room':
-      case 'open space':
-      case 'painting gallery':
-      case 'piano room':
-      case 'private office':
-      case 'private office 4':
-      case 'private office 6':
-      case 'private office 6p':
-      case 'serve room':
-        newId = 'room';
-        break;
-      case 'Agora desk':
-      case 'bed':
-      case 'coffee table':
-      case 'fridge':
-      case 'Laptop':
-      case 'light':
-      case 'light cover':
-      case 'mobile whiteboard':
-      case 'monitor':
-      case 'office chairs':
-      case 'oven':
-      case 'paper shredder':
-      case 'printer':
-      case 'round light':
-      case 'sofa':
-      case 'table':
-      case 'TV':
-      case 'video projector':
-        newId = 'fixture';
-        break;
-      case 'computer':
-      case 'furniture':
-      case 'office appliance':
-        newId = 'category';
-        break;
-      case '_':
-      case '?':
-      case 'back':
-      case 'bar':
-      case 'between 2 sofas':
-      case 'door':
-      case 'kitchenette':
-      case 'left':
-      case 'minibar':
-      case 'next to cupboard':
-      case 'next to door':
-      case 'next to office manager':
-      case 'right':
-      case 'under stand up desk':
-      case 'wooden cabinet':
-        newId = 'location';
-        break;
-      default:
-        callback(rows.map((row) =>
-          rowToObject(row, rows[0])).splice(1, rows.length).sort((a, b) =>
-          a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
+    if (id !== undefined) {
+      for (let i = 0; i < rows.length; i += 1) {
+        const objKey = getKeyByValue(rows.map((row) => rowToObject(row, rows[0]))[i], id);
+        if (objKey !== undefined) {
+          newId = objKey;
+        }
+      }
+      callback(rows.map((row) =>
+        rowToObject(row, rows[0])).filter((item) =>
+        item[newId] === id).sort((a, b) =>
+        a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
+    } else {
+      callback(rows.map((row) =>
+        rowToObject(row, rows[0])).splice(1, rows.length).sort((a, b) =>
+        a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
     }
-    callback(rows.map((row) =>
-      rowToObject(row, rows[0])).filter((item) =>
-      item[newId] === id).sort((a, b) =>
-      a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
   });
 }
 
