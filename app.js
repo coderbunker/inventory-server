@@ -12,11 +12,11 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
 
-app.get(['/search/', '/search?:column=:item'], (req, res) => {
-  console.log(req.query("column"));
+app.get(['/search'], (req, res) => {
+// console.log(req.query);
   const column = Object.keys(req.query)[0];
   const item = req.query[Object.keys(req.query)[0]];
-  googleSpreadsheet.findAllEquipment(column, item, (matches) => {
+  googleSpreadsheet.findEquipment(req.query, (matches) => {
     res.render('search', {
       matches: matches.sort((a, b) =>
         a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1),
@@ -25,8 +25,7 @@ app.get(['/search/', '/search?:column=:item'], (req, res) => {
 });
 
 app.get('/:id', (req, res) => {
-  googleSpreadsheet.findEquipment(req.params.id, (matchedItem) => {
-    // console.log('using findEquipment callback, ', req.params.id);
+  googleSpreadsheet.findEquipment({uuid:req.params.id}, (matchedItem) => {
     if (!matchedItem) {
       res.render('notFound', {
         item: '',
@@ -34,7 +33,7 @@ app.get('/:id', (req, res) => {
       });
       return;
     }
-    //  console.log(matchedItem);
+    // TRICK: assuming uuid will only have 1 match
     res.render('item', matchedItem[0]);
   });
 });

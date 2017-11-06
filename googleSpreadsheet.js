@@ -21,30 +21,19 @@ function loadDatabase(callback) {
       return;
     }
     return callback(response.values.map((row) =>
-      rowToObject(row, response.values[0])).splice(1, response.values.length));
+      rowToObject(row, response.values[0])).splice(1));
   });
 }
 
-function getKeyByValue(object, value) {
-  return Object.keys(object).find(key => object[key] === value);
-}
-
-// TODO: NOIMG.PNG DISAPPEARS IF URL HAS ANY CHARACTER AFTER ...SEARCH (ex search/ or search/bed)
-function findAllEquipment(column, value, callback) {
+function findEquipment(query, callback) {
   loadDatabase((rows) => {
-    if (value === undefined) {
-      return callback(rows);
+    for (let key of Object.keys(query)) {
+      rows = rows.filter((item) => item[key] === query[key]);
     }
-    return callback(rows.filter((item) =>item[column] === value));
+    return callback(rows);
   });
-}
-
-function findEquipment(uuid, callback) {
-  loadDatabase((rows) =>
-    callback(rows.filter((item) => item.uuid === uuid)));
 }
 
 module.exports = {
   findEquipment,
-  findAllEquipment,
 };
