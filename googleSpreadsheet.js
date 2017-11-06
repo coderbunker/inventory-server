@@ -20,7 +20,8 @@ function loadDatabase(callback) {
       console.log(`The API returned an error: ${err}`);
       return;
     }
-    return callback(response.values);
+    return callback(response.values.map((row) =>
+      rowToObject(row, response.values[0])).splice(1, response.values.length));
   });
 }
 
@@ -28,37 +29,19 @@ function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
-// TODO: SORT BY FLOOR ONLY? WHAT ELSE?
 // TODO: NOIMG.PNG DISAPPEARS IF URL HAS ANY CHARACTER AFTER ...SEARCH (ex search/ or search/bed)
-// TODO: findAllEquipment IS MESSY NOW REFACTOR,
-// TODO: REMOVE SPLICE FROM LAST callback (FIND ANOTHER WAY TO REMOVE FIRST EMPTY OBJ)
-function findAllEquipment(id, callback) {
+function findAllEquipment(column, value, callback) {
   loadDatabase((rows) => {
-    let newId = '';
-    if (id !== undefined) {
-      for (let i = 0; i < rows.length; i += 1) {
-        const objKey = getKeyByValue(rows.map((row) => rowToObject(row, rows[0]))[i], id);
-        if (objKey !== undefined) {
-          newId = objKey;
-        }
-      }
-      callback(rows.map((row) =>
-        rowToObject(row, rows[0])).filter((item) =>
-        item[newId] === id).sort((a, b) =>
-        a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
-    } else {
-      callback(rows.map((row) =>
-        rowToObject(row, rows[0])).splice(1, rows.length).sort((a, b) =>
-        a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
+    if (value === undefined) {
+      return callback(rows);
     }
+    return callback(rows.filter((item) =>item[column] === value));
   });
 }
 
 function findEquipment(uuid, callback) {
   loadDatabase((rows) =>
-    callback(rows.map((row) =>
-      rowToObject(row, rows[0])).filter((item) =>
-      item.uuid === uuid)));
+    callback(rows.filter((item) => item.uuid === uuid)));
 }
 
 module.exports = {

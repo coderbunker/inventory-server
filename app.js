@@ -12,10 +12,13 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
 
-app.get(['/search/', '/search/:id'], (req, res) => {
-  googleSpreadsheet.findAllEquipment(req.params.id, (matches) => {
+app.get(['/search/', '/search?:column=:item'], (req, res) => {
+  const column = Object.keys(req.query)[0];
+  const item = req.query[Object.keys(req.query)[0]];
+  googleSpreadsheet.findAllEquipment(column, item, (matches) => {
     res.render('search', {
-      matches: matches,
+      matches: matches.sort((a, b) =>
+        a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1),
     });
   });
 });

@@ -6,10 +6,8 @@
 					<div class="well col-xs-12">
 						<div class="col-xs-2">
 							<% if (matches[i].picture === undefined || matches[i].picture === '') { %>
-								<% console.log("IF: ", matches[i].picture); %>
 								<img class="itemImg" src="noImg.png" />
 							<% }else{ %>
-								<% console.log("ELSE: ", matches[i].picture); %>
 								<img class="itemImg" src=" <%- matches[i].picture %> " />
 							<%}%>
 						</div>
