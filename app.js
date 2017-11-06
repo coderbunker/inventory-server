@@ -13,6 +13,7 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.get(['/search/', '/search?:column=:item'], (req, res) => {
+  console.log(req.query("column"));
   const column = Object.keys(req.query)[0];
   const item = req.query[Object.keys(req.query)[0]];
   googleSpreadsheet.findAllEquipment(column, item, (matches) => {
