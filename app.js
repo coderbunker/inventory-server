@@ -12,10 +12,7 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
 
-app.get(['/search'], (req, res) => {
-// console.log(req.query);
-  const column = Object.keys(req.query)[0];
-  const item = req.query[Object.keys(req.query)[0]];
+app.get('/search', (req, res) => {
   googleSpreadsheet.findEquipment(req.query, (matches) => {
     res.render('search', {
       matches: matches.sort((a, b) =>
@@ -25,16 +22,15 @@ app.get(['/search'], (req, res) => {
 });
 
 app.get('/:id', (req, res) => {
-  googleSpreadsheet.findEquipment({uuid:req.params.id}, (matchedItem) => {
-    if (!matchedItem) {
+  googleSpreadsheet.findEquipment({ uuid: req.params.id }, (matches) => {
+    if (!matches) {
       res.render('notFound', {
         item: '',
         id: req.params.id,
       });
       return;
     }
-    // TRICK: assuming uuid will only have 1 match
-    res.render('item', matchedItem[0]);
+    res.render('item', { matches });
   });
 });
 
