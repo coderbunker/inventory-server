@@ -22,8 +22,13 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/:id', (req, res) => {
-  googleSpreadsheet.findEquipment({ uuid: req.params.id }, (matches) => {
-    if (!matches) {
+  googleSpreadsheet.findEquipment(req.query, (allItems) => {
+    const matches = allItems.filter((item) =>  item.uuid === req.params.id);
+    matches.similarItems = allItems.filter((item) =>  matches[0].fixture === item.fixture);
+    for (let i = 0; i < matches.similarItems.length; i += 1) {
+      console.log('similarItems ', matches.similarItems[i]);
+    }
+    if (!allItems) {
       res.render('notFound', {
         item: '',
         id: req.params.id,
