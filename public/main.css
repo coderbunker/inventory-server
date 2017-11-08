@@ -87,7 +87,17 @@ h3 {
     background-color: whitesmoke;
     opacity: 0.9;
 }
+.miniSearchItem{
+  padding-top: 1em;
+  padding-bottom: 1em;
+  /*display: inline-block;*/
+  /*text-align: center;*/
+/*border: 2px dotted red;*/
+}
+.miniItemImg{
+  width:100%;
 
+}
 .searchResultList {
     list-style: none;
     padding: 0;

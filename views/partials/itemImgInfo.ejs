@@ -18,9 +18,19 @@
   </div>
 </article>
 <article class="col-xs-12">
-  <h3>Search Similar Items</h3>
+  <h3>Similar Items</h3>
   <div class='infoSection col-xs-11 col-xs-offset-1'>
-    <span> <a href="/search?fixture=<%- matches[0].fixture %>"> <%- matches[0].fixture.toLowerCase() %> </a></span>
-    <%- matches.similarItems %>
+    <% for(var i = 0; i < matches.similarItems.length; i++){ %>
+      <div class='miniSearchItem col-xs-4'>
+        <% if (matches.similarItems[i].picture === undefined || matches.similarItems[i].picture === '') { %>
+          <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
+        <% }else{ %>
+          <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- matches.similarItems[i].picture %> " /> </a>
+        <%}%>
+        <!-- <h6>
+          <a href="/<%- matches.similarItems[i].uuid %>"> <%- matches.similarItems[i].fixture.toUpperCase() %> </a>
+        </h6> -->
+      </div>
+    <%}%>
   </div>
 </article>

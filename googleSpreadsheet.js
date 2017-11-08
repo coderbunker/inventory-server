@@ -27,9 +27,6 @@ function loadDatabase(callback) {
 
 function findEquipment(query, callback) {
   loadDatabase((rows) => {
-    for (const key of Object.keys(query)) {
-      rows = rows.filter((item) => item[key] === query[key]);
-    }
     return callback(rows);
   });
 }
