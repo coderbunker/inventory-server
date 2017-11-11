@@ -15,21 +15,22 @@ app.get('/favicon.ico', (req, res) => {
 app.get('/search', (req, res) => {
   googleSpreadsheet.findEquipment(req.query, (allItems) => {
     let matches = allItems;
-    for (const key of Object.keys(req.query)) {
-      matches = allItems.filter((item) =>
-        item[key] === req.query[key]);
-    }
+    Object.keys(req.query).map((key) => {
+      matches = allItems.filter(item => item[key] === req.query[key]);
+    });
     res.render('search', {
-      matches: matches.sort((a, b) =>
-        a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1),
+      matches: matches.sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
     });
   });
 });
 
 app.get('/:id', (req, res) => {
   googleSpreadsheet.findEquipment(req.query, (allItems) => {
-    const matches = allItems.filter((item) => item.uuid === req.params.id);
-    matches.similarItems = allItems.filter((item) => item.fixture === matches[0].fixture && item.uuid !== matches[0].uuid).splice(0, 3);
+    const matches = allItems.filter(item => item.uuid === req.params.id);
+    matches.similarItems = allItems
+      .filter(item =>
+        item.fixture === matches[0].fixture && item.uuid !== matches[0].uuid)
+      .splice(0, 3);
     if (!allItems) {
       res.render('notFound', {
         item: '',

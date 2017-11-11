@@ -20,15 +20,13 @@ function loadDatabase(callback) {
       console.log(`The API returned an error: ${err}`);
       return;
     }
-    return callback(response.values.map((row) =>
+    return callback(response.values.map(row =>
       rowToObject(row, response.values[0])).splice(1));
   });
 }
 
 function findEquipment(query, callback) {
-  loadDatabase((rows) => {
-    return callback(rows);
-  });
+  loadDatabase(rows => callback(rows));
 }
 
 module.exports = {
