@@ -4,19 +4,15 @@
     <%- matches[0].HOWTO %>
   </div>
 </article>
+<% if (matches[0].Troubleshooting) { %>
 <article class="well">
   <h2>Need Help</h2>
   <div>
     <%- matches[0].Troubleshooting %>
   </div>
 </article>
-<article class="well">
-  <h2>Extra Info</h2>
-  <div>
-    <%- matches[0].details %>
-    UUID: <%- matches[0].uuid %>
-  </div>
-</article>
+<% } %>
+<% if (matches.similarItems.length) { %>
 <article class="well">
   <h2>Similar Items</h2>
   <div>
@@ -31,6 +27,16 @@
           <a href="/<%- matches.similarItems[i].uuid %>"> <%- matches.similarItems[i].fixture.toUpperCase() %> </a>
         </h6> -->
       </div>
-    <%}%>
+    <% } %>
   </div>
+</article>
+<% } %>
+<article class="well">
+  <%- matches[0].details %>
+  <ul>
+    <li>model: <%- matches[0].model %></li>
+    <li>serial: <%- matches[0].serial %></li>
+    <li>owner: <%- matches[0].owner %></li>
+    <li>UUID: <%- matches[0].uuid %></li>
+  </ul>
 </article>
