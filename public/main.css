@@ -65,28 +65,14 @@
     flex-wrap: wrap;
 }
 
-article, h3, .infoSection {
-    border-radius: 3px;
-}
-
 article {
-    padding: 1em 2em;
+    border-radius: 3px;
+    padding-top: 1em;
+    padding-bottom: 1em;
     margin-bottom: 1em;
-    background-color: #1874CD;
+    background-color: whitesmoke;
 }
 
-h3 {
-    padding-left: 1em;
-    background-color: whitesmoke;
-    opacity: 0.9;
-    color: black;
-}
-
-.infoSection {
-    margin: 1em 0;
-    background-color: whitesmoke;
-    opacity: 0.9;
-}
 .miniSearchItem{
   padding-top: 1em;
   padding-bottom: 1em;
