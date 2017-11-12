@@ -2,7 +2,6 @@
     <% for(var i = 0; i < matches.length; i++){ %>
       <li>
         <div class="col-xs-12">
-          <span> <a href="/search"> HOME </a></span> >
           <span> <a href="/search?floor=<%- matches[i].floor %>"> <%- matches[i].floor.toLowerCase() %> </a></span> >
           <span> <a href="/search?floor=<%- matches[i].floor %>&room=<%- matches[i].room %>"> <%- matches[i].room.toLowerCase() %>  </a></span> >
           <span> <a href="/search?floor=<%- matches[i].floor %>&room=<%- matches[i].room %>&location=<%- matches[i].location %>"> <%- matches[i].location.toLowerCase() %>  </a></span> >
