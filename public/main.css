@@ -2,6 +2,7 @@
     background: url('logo.png');
     height: 6em;
     margin-top: 1em;
+    margin-bottom: 1em;
     width: 100%;
     background-position: right;
     background-repeat: no-repeat;
@@ -54,10 +55,6 @@
     /*padding-right: 1em;*/
 }
 
-.location {
-    text-align: center;
-    margin: 10px 0px -10px 0px;
-}
 
 .infoBox {
     display: flex;
