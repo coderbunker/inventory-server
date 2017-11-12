@@ -25,10 +25,15 @@ function loadDatabase(callback) {
   });
 }
 
-function findEquipment(query, callback) {
-  loadDatabase(rows => callback(rows));
+function searchDatabase(query, rows) {
+  let matches = rows;
+  Object.keys(query).map((key) => {
+    matches = matches.filter(item => item[key] === query[key]);
+  });
+  return matches;
 }
 
 module.exports = {
-  findEquipment,
+  loadDatabase,
+  searchDatabase,
 };

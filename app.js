@@ -1,6 +1,6 @@
 const express = require('express');
 
-const googleSpreadsheet = require('./googleSpreadsheet');
+const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
 
 const app = express();
 
@@ -13,20 +13,17 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-  googleSpreadsheet.findEquipment(req.query, (allItems) => {
-    let matches = allItems;
-    Object.keys(req.query).map((key) => {
-      matches = matches.filter(item => item[key] === req.query[key]);
-    });
+  loadDatabase((allItems) => {
     res.render('search', {
-      matches: matches.sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
+      matches: searchDatabase(req.query, allItems)
+        .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
     });
   });
 });
 
-app.get('/:id', (req, res) => {
-  googleSpreadsheet.findEquipment(req.query, (allItems) => {
-    const matches = allItems.filter(item => item.uuid === req.params.id);
+app.get('/:uuid', (req, res) => {
+  loadDatabase((allItems) => {
+    const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
       res.render('notFound', {
         item: '',
@@ -34,9 +31,8 @@ app.get('/:id', (req, res) => {
       });
       return;
     }
-    matches.similarItems = allItems
-      .filter(item =>
-        item.fixture === matches[0].fixture && item.uuid !== matches[0].uuid)
+    matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
+      .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
     res.render('item', { matches });
   });
