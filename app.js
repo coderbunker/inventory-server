@@ -1,6 +1,8 @@
 const express = require('express');
 
-const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
+const { Spreadsheet } = require('./googleSpreadsheet');
+
+var spreadsheet = new Spreadsheet();
 
 const app = express();
 
@@ -13,25 +15,31 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-  loadDatabase((allItems) => {
+  spreadsheet.loadDatabase((allItems) => {
     res.render('search', {
-      matches: searchDatabase(req.query, allItems)
+      matches: spreadsheet.searchDatabase(req.query, allItems)
         .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
     });
   });
 });
 
+app.get('/admin', (req,res) => {
+  var lastId = spreadsheet.lastId;
+  res.render('admin', { lastId });
+});
+
 app.get('/:uuid', (req, res) => {
-  loadDatabase((allItems) => {
-    const matches = searchDatabase(req.params, allItems);
+  spreadsheet.loadDatabase((allItems) => {
+    const matches = spreadsheet.searchDatabase(req.params, allItems);
     if (matches.length === 0) {
+      spreadsheet.lastId = req.params.uuid;
       res.render('notFound', {
         item: '',
         id: req.params.id,
       });
       return;
     }
-    matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
+    matches.similarItems = spreadsheet.searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
     res.render('item', { matches });
