@@ -1,0 +1,30 @@
+<% include ./partials/header %>
+<div class="resultContainer col-xs-12">
+  <article class="col-xs-12">
+    <h2>Unassigned</h2>
+    <ul>
+      <% for(var i = 0; i<data.unassigned.length; i++){%>
+        <li>
+          <%- data.unassigned[i][0] %>: <%- data.unassigned[i][1] %>
+        </li>
+      <%}%>
+    </ul>
+  </article>
+  <article class="col-xs-12">
+    <h2>Assigned</h2>
+    <ul>
+      <% for(var i = 0; i<data.assigned.length; i++){%>
+        <li>
+          <%- data.assigned[i][0] %>: <br /><%- data.assigned[i][1] %>
+        </li>
+      <%}%>
+    </ul>
+  </article>
+  <article class="col-xs-12">
+    <h2>Test</h2>
+    <ul>
+      <% cat = data.assigned.map(function(elem) { return '<li>' + elem[0] + '</li>'; }) %>
+    </ul>
+  </article>
+</div>
+<% include ./partials/footer %>
