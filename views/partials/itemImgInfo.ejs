@@ -1,33 +1,37 @@
-<article class="well col-xs-12">
-  <h2>How To</h2>
-  <div>
-    <%- matches[0].HOWTO %>
-  </div>
-</article>
+<% if (matches[0].HOWTO) { %>
+  <article class="well col-xs-12">
+    <h2>How To</h2>
+    <div>
+      <%- matches[0].HOWTO %>
+    </div>
+  </article>
+<%}%>
 <% if (matches[0].Troubleshooting) { %>
-<article class="well col-xs-12">
-  <h2>Need Help</h2>
-  <div>
-    <%- matches[0].Troubleshooting %>
-  </div>
-</article>
+  <article class="well col-xs-12">
+    <h2>Need Help</h2>
+    <div>
+      <%- matches[0].Troubleshooting %>
+    </div>
+  </article>
 <% } %>
+<% if ( matches.similarItems ) { %>
+  <article class="well col-xs-12">
+    <h2>Similar Items</h2>
+    <div>
+      <% for(var i = 0; i < matches.similarItems.length; i++){ %>
+        <div class='miniSearchItem col-xs-4'>
+          <% if (matches.similarItems[i].picture === undefined || matches.similarItems[i].picture === '') { %>
+            <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
+          <% }else{ %>
+            <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- matches.similarItems[i].picture %> " /> </a>
+          <%}%>
+        </div>
+      <% } %>
+    </div>
+  </article>
+<%}%>
 <article class="well col-xs-12">
-  <h2>Similar Items</h2>
-  <div>
-    <% for(var i = 0; i < matches.similarItems.length; i++){ %>
-      <div class='miniSearchItem col-xs-4'>
-        <% if (matches.similarItems[i].picture === undefined || matches.similarItems[i].picture === '') { %>
-          <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
-        <% }else{ %>
-          <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- matches.similarItems[i].picture %> " /> </a>
-        <%}%>
-      </div>
-    <% } %>
-  </div>
-</article>
-
-<article class="well col-xs-12">
+  <h2>Details</h2>
   <%- matches[0].details %>
   <ul>
     <li>model: <%- matches[0].model %></li>

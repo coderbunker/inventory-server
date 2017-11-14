@@ -4,8 +4,8 @@ const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
 
 const app = express();
 
-let recentScans = {
-  assigned:[],
+const recentScans = {
+  assigned: [],
   unassigned: [],
 };
 
@@ -27,7 +27,7 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/recent', (req, res) => {
-  res.render('recent', {data: recentScans} );
+  res.render('recent', { data: recentScans });
 });
 
 app.get('/:uuid', (req, res) => {
