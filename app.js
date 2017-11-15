@@ -1,5 +1,7 @@
 const express = require('express');
 
+const qr = require('qr-image');
+
 const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
 
 const app = express();
@@ -23,6 +25,17 @@ app.get('/search', (req, res) => {
       matches: searchDatabase(req.query, allItems)
         .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
     });
+  });
+});
+
+app.get('/qrlist', (req, res) => {
+  loadDatabase((allItems) => {
+    const qrList = searchDatabase(req.query, allItems)
+      .filter(item => item.uuid !== '')
+      .filter(item => item.uuid !== undefined)
+      .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
+    qrList.forEach(item => item.qr = qr.imageSync('http://url.coderbunker.com/' + item.uuid, { type: 'svg' }));
+    res.render('qrList', { matches: qrList });
   });
 });
 
@@ -51,7 +64,6 @@ app.get('/:uuid', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  // console.log(req.params);
   res.redirect('https://cryptic-woodland-88390.herokuapp.com/');
 });
 

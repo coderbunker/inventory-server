@@ -1,0 +1,22 @@
+<% include ./partials/header %>
+<div class="resultContainer stickers col-xs-12">
+  <% for ( var i = 0; i < matches.length; i++) {%>
+    <article class="col-xs-3">
+      <div class="col-xs-12">
+        <%- matches[i].floor.toLowerCase() %> >
+        <%- matches[i].room.toLowerCase() %> >
+        <%- matches[i].location.toLowerCase() %> >
+        <%- matches[i].fixture.toLowerCase() %>
+      </div>
+      <div class="col-xs-12">
+        <%- matches[i].qr %>
+      </div>
+      <div class="col-xs-12">
+        <center>
+          <%- matches[i].uuid %>
+        </center>
+      </div>
+    </article>
+  <% } %>
+</div>
+<% include ./partials/footer %>
