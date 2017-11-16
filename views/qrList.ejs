@@ -1,7 +1,7 @@
 <% include ./partials/header %>
-<div class="resultContainer stickers col-xs-12">
+<div class="col-xs-12">
   <% for ( var i = 0; i < matches.length; i++) {%>
-    <article class="col-xs-3">
+    <div class="stickers col-xs-3">
       <div class="col-xs-12">
         <%- matches[i].floor.toLowerCase() %> >
         <%- matches[i].room.toLowerCase() %> >
@@ -16,7 +16,7 @@
           <%- matches[i].uuid %>
         </center>
       </div>
-    </article>
+    </div>
   <% } %>
 </div>
 <% include ./partials/footer %>
