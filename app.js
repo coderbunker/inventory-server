@@ -56,7 +56,7 @@ app.get('/:uuid', (req, res) => {
     }
     recentScans.assigned.push([matches[0].fixture, req.params.uuid]);
     // console.log(recentScans);
-    matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
+    matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
     res.render('item', { matches });
