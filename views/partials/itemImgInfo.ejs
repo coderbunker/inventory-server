@@ -22,10 +22,10 @@
         <div class='miniSearchItem col-xs-4'>
           <% if (matches[0].similarItems[i].picture === undefined || matches[0].similarItems[i].picture === '') { %>
             <a href="/<%- matches[0].similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
-            <%-matches[0].similarItems[i].uuid %>
+            <div class="miniItemDesc"><%-matches[0].similarItems[i].model %></div>
           <% }else{ %>
             <a href="/<%- matches[0].similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- matches[0].similarItems[i].picture %> " /> </a>
-            <%-matches[0].similarItems[i].uuid %>
+            <div class="miniItemDesc"><%-matches[0].similarItems[i].model %></div>
           <%}%>
         </div>
       <% } %>
