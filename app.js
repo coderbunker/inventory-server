@@ -47,7 +47,8 @@ app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      recentScans.unassigned.push(req.params.uuid);
+      console.log("Not matched:");
+      recentScans.unassigned.push(['New Item', req.params.uuid]);
       res.render('notFound', {
         item: '',
         id: req.params.uuid,
@@ -55,7 +56,7 @@ app.get('/:uuid', (req, res) => {
       return;
     }
     recentScans.assigned.push([matches[0].fixture, req.params.uuid]);
-    // console.log(recentScans);
+    console.log("matched");
     matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
