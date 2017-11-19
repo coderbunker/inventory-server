@@ -9,10 +9,10 @@
     "lint": "eslint *.js",
     "check": "npm ls > /dev/null"
   },
-  "pre-commit": [
+  /*"pre-commit": [
     "lint",
     "check"
-  ],
+  ],*/
   "author": "Alex Miller",
   "license": "ISC",
   "dependencies": {
