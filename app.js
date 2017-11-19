@@ -11,6 +11,13 @@ const recentScans = {
   unassigned: [],
 };
 
+const date = new Date();
+const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+const hour = date.getHours();
+const dayOfWeek = date.getDay();
+const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const scanTime = week[dayOfWeek] + ' ' + hour + ':' + minutes;
+
 app.set('view engine', 'ejs');
 
 app.use(express.static(`${__dirname}/public`));
@@ -47,16 +54,14 @@ app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      console.log("Not matched:");
-      recentScans.unassigned.push(['New Item', req.params.uuid]);
+      recentScans.unassigned.push([scanTime, req.params.uuid]);
       res.render('notFound', {
         item: '',
         id: req.params.uuid,
       });
       return;
     }
-    recentScans.assigned.push([matches[0].fixture, req.params.uuid]);
-    console.log("matched");
+    recentScans.assigned.push([scanTime, matches[0].fixture + ' - ' + req.params.uuid]);
     matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
