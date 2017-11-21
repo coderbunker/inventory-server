@@ -48,6 +48,8 @@ To deploy inventory-server you need an account a [heroku account](https://signup
 #### - [Install heroku](https://devcenter.heroku.com/articles/getting-started-with-python?c=70130000000NhRJAA0&utm_campaign=Onboarding-Nurture-Email-1&utm_medium=email&utm_source=nurture&utm_content=devcenter&utm_term=start-python#set-up)
 #### - Once your installation succeded you can login into your account using heroku's command line: 
     heroku login
+## Prepare your workspace
+### Prepare it from scratch
 #### - Clone this repository then go to the project folder
     git clone https://github.com/coderbunker/inventory-server.git
     cd inventory-server
@@ -55,9 +57,19 @@ To deploy inventory-server you need an account a [heroku account](https://signup
 You can create one with one command:
 Skip this step if you want to manage our deployment.
     heroku create #will add a remote repository called 'heroku'(ensure you don't have an existing remote with that name)
+### Deploy the code you contributed on
+#### - Clone this repository then go to the project folder
+    git clone https://github.com/coderbunker/inventory-server.git
+    cd inventory-server
 #### - In order to administrate our release you can run the following commands (requires access rights). 
+    git remote add heroku  https://git.heroku.com/enigmatic-brushlands-32514.git
+
+### Create a separate repository that tracks the deployment 
+#### - Or, if you want to work in a dedicated repository you can do this that way
     heroku git:clone -a enigmatic-brushlands-32514
     cd enigmatic-brushlands-32514
+
+## Release your work
 #### - Push the version of the repository you want to deploy on the 'heroku' remote, for instance if you want to deploy your master branch type:
     git push heroku master
     #No matter the local branch you are pushing, it is recommended to push on heroku remote's master branch 
