@@ -1,7 +1,9 @@
 <% include ./partials/header %>
+
 <div class="resultContainer col-xs-12">
+  <h1>Recently scanned QR code</h1>
   <article class="col-xs-12">
-    <h2>Unassigned</h2>
+    <h2>Not Found</h2>
     
       <% for(var i = 0; i<data.unassigned.length; i++){%>
         <li class="recent-list">
@@ -13,7 +15,7 @@
     
   </article>
   <article class="col-xs-12">
-    <h2>Assigned</h2>
+    <h2>Recent Item</h2>
       <% for(var i = 0; i<data.assigned.length; i++){%>
         <li class="recent-list">
           <a href="/<%- data.assigned[i][2] %>"><%- data.assigned[i][0] %> <%- data.assigned[i][1] %></a><br />
