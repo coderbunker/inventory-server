@@ -5,10 +5,10 @@
     
       <% for(var i = 0; i<data.unassigned.length; i++){%>
         <li class="recent-list">
-          <%- data.unassigned[i][0] %> <br />
-          - <%- data.unassigned[i][1] %>
+        <a href="<%- data.unassigned[i][1] %>"><%- data.unassigned[i][0] %></a>
+          <br />
+          <%- data.unassigned[i][1] %>
         </li>
-        <hr />
       <%}%>
     
   </article>
@@ -16,12 +16,10 @@
     <h2>Assigned</h2>
       <% for(var i = 0; i<data.assigned.length; i++){%>
         <li class="recent-list">
-          <%- data.assigned[i][0] %> <br /> 
-          <a href="/<%- data.assigned[i][2] %>"><%- data.assigned[i][1] %></a><br />
+          <a href="/<%- data.assigned[i][2] %>"><%- data.assigned[i][0] %> <%- data.assigned[i][1] %></a><br />
           <%- data.assigned[i][2] %> <br />
           </a>
         </li>
-        <hr />
       <%}%>
   </article>
 </div>
