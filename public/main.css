@@ -10,6 +10,12 @@
     position: relative;
 }
 
+
+.recent-list {
+    list-style-type: none;
+} 
+
+
 #appTitle {
     color: white;
     text-align: center;

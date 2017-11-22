@@ -61,7 +61,7 @@ app.get('/:uuid', (req, res) => {
       });
       return;
     }
-    recentScans.assigned.push([scanTime, matches[0].fixture + ' - ' + req.params.uuid]);
+    recentScans.assigned.push([scanTime, matches[0].fixture, req.params.uuid]);
     matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
