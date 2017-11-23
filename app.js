@@ -26,9 +26,9 @@ function scannedToList(fix, uuid) {
           recentScans.unassigned.splice(i, 1);
         }
       }
-      recentScans.assigned.push({ time: scanTime, fixture: fix + ' - ', uuid: uuid });
+      recentScans.assigned.push({ time: scanTime, fixture: fix, uuid: uuid });
     } else {
-      recentScans.unassigned.push({ time: scanTime, fixture: fix + ' - ', uuid: uuid });
+      recentScans.unassigned.push({ time: scanTime, fixture: fix, uuid: uuid });
     }
   }
 }

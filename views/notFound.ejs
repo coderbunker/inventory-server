@@ -1,8 +1,11 @@
 <% include ./partials/header %>
 
-  <div class="notFound">
-    <img src="/emoji.png" alt="">
-    <p>Sorry, item with the id <strong><%= id %></strong> not found</p>
+  <div class="col-xs-12">
+    <img class="col-xs-12" src="/emoji.png" alt="">
+    <p>Sorry, item not found with the id:</p>
+    <p>
+      <strong><%= id %></strong>
+    </p>
   </div>
-  
+
 <% include ./partials/footer %>
