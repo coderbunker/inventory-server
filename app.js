@@ -6,10 +6,48 @@ const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
 
 const app = express();
 
+const keys = require('./config/keys');
+
+// Image uploader
+const aws = require('aws-sdk');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
+aws.config.update({
+  secretAccessKey: keys.secretAccessKey,
+  accessKeyId: keys.accessKeyId,
+  region: 'us-east-2',
+});
+
+const s3 = new aws.S3();
+
+app.use(bodyParser.json());
+
+const upload = multer({
+  storage: multerS3({
+    s3,
+    bucket: 'inventory-server-images',
+    key(req, file, cb) {
+      console.log(file);
+      cb(null, `${req.params.uuid}.jpg`);
+    },
+  }),
+});
+
+
 const recentScans = {
   assigned: [],
   unassigned: [],
 };
+
+const date = new Date();
+const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+const hour = date.getHours();
+const dayOfWeek = date.getDay();
+const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const scanTime = `${week[dayOfWeek]} ${hour}:${minutes}`;
+
 
 app.set('view engine', 'ejs');
 
@@ -17,6 +55,10 @@ app.use(express.static(`${__dirname}/public`));
 
 app.get('/favicon.ico', (req, res) => {
   res.status(204);
+});
+
+app.post('/:uuid', upload.single('upl'), (req, res) => {
+  res.redirect(req.params.uuid);
 });
 
 app.get('/search', (req, res) => {
@@ -34,7 +76,7 @@ app.get('/qrlist', (req, res) => {
       .filter(item => item.uuid !== '')
       .filter(item => item.uuid !== undefined)
       .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
-    qrList.forEach(item => item.qr = qr.imageSync('http://url.coderbunker.com/' + item.uuid, { type: 'svg' }));
+    qrList.forEach(item => item.qr = qr.imageSync(`http://url.coderbunker.com/${item.uuid}`, { type: 'svg' }));
     res.render('qrList', { matches: qrList });
   });
 });
@@ -47,15 +89,14 @@ app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      recentScans.unassigned.push(req.params.uuid);
+      recentScans.unassigned.push([scanTime, req.params.uuid]);
       res.render('notFound', {
         item: '',
         id: req.params.uuid,
       });
       return;
     }
-    recentScans.assigned.push([matches[0].fixture, req.params.uuid]);
-    // console.log(recentScans);
+    recentScans.assigned.push([scanTime, matches[0].fixture, req.params.uuid]);
     matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);

@@ -1,6 +1,6 @@
 .logo {
     background: url('logo.png');
-    height: 6em;
+    height: 7em;
     margin-top: 1em;
     margin-bottom: 1em;
     width: 100%;
@@ -9,6 +9,19 @@
     background-size: cover;
     position: relative;
 }
+
+
+.recent-list {
+    list-style-type: none;
+    padding-bottom: 5px;
+} 
+
+.image-upload > input {
+  visibility:hidden;
+  width:0;
+  height:0
+}
+
 
 #appTitle {
     color: white;
