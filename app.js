@@ -18,6 +18,19 @@ const dayOfWeek = date.getDay();
 const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const scanTime = week[dayOfWeek] + ' ' + hour + ':' + minutes;
 
+function scannedToList(fix, uuid) {
+  if (fix !== 'New Item') {
+    for (let i = 0; i < recentScans.unassigned.length; i += 1) {
+      if (recentScans.unassigned[i].uuid === uuid) {
+        recentScans.unassigned.splice(i, 1);
+      }
+    }
+    recentScans.assigned.push({ time: scanTime, fixture: fix + ' - ', uuid: uuid });
+  } else {
+    recentScans.unassigned.push({ time: scanTime, fixture: fix + ' - ', uuid: uuid });
+  }
+}
+
 app.set('view engine', 'ejs');
 
 app.use(express.static(`${__dirname}/public`));
@@ -54,14 +67,16 @@ app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      recentScans.unassigned.push([scanTime, req.params.uuid]);
+      scannedToList('New Item', req.params.uuid);
+      // recentScans.unassigned.push([scanTime, req.params.uuid]);
       res.render('notFound', {
         item: '',
         id: req.params.uuid,
       });
       return;
     }
-    recentScans.assigned.push([scanTime, matches[0].fixture, req.params.uuid]);
+    // recentScans.assigned.push([scanTime, matches[0].fixture, req.params.uuid]);
+    scannedToList(matches[0].fixture, req.params.uuid);
     matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
