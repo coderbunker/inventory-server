@@ -56,8 +56,10 @@ app.get('/:uuid', (req, res) => {
     }
     recentScans.assigned.push([matches[0].fixture, req.params.uuid]);
     // console.log(recentScans);
-    matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
+    matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
+       .filter(item => item.floor === matches[0].floor)
+      // .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1))
       .splice(0, 3);
     res.render('item', { matches });
   });
