@@ -6,27 +6,21 @@ const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
 
 const app = express();
 
-const recentScans = {
-  assigned: [],
-  unassigned: [],
-};
-
+const allScans = [];
 
 function logScanned(uuid, fixture) {
   // TRICK: fixture tells if the the uuid was found in database or not
-
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
     return;
   }
   const now = new Date();
   if (!fixture) {
-    recentScans.unassigned.unshift({ time: now, status: 'missing', uuid });
+    allScans.unshift({ time: now, status: 'missing', uuid });
     return;
   }
-  recentScans.unassigned.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-  recentScans.assigned.unshift({ time: now, fixture, uuid });
+  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
+  allScans.unshift({ time: now, fixture, uuid });
 }
-
 
 app.set('view engine', 'ejs');
 
@@ -57,7 +51,7 @@ app.get('/qrlist', (req, res) => {
 });
 
 app.get('/recent', (req, res) => {
-  res.render('recent', { data: recentScans });
+  res.render('recent', { allScans });
 });
 
 app.get('/:uuid', (req, res) => {

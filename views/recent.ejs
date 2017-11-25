@@ -2,24 +2,23 @@
 <div class="resultContainer col-xs-12">
   <h1>Recently scanned QR code</h1>
   <article class="col-xs-12">
-    <h2>Not Found</h2>
     <ul class='recent-list'>
-      <% for(var i = 0; i<data.unassigned.length; i++){%>
-        <li>
-          <a href="/<%- data.unassigned[i].uuid %>"><%- data.unassigned[i].time.toTimeString() %> - <%- data.unassigned[i].status %> </a> :<br/>
-          <%- data.unassigned[i].uuid %>
-        </li>
-      <%}%>
-    </ul>
-  </article>
-  <article class="col-xs-12">
-    <h2>Recent Item</h2>
-    <ul class='recent-list'>
-      <% for(var i = 0; i<data.assigned.length; i++){%>
-        <li>
-          <a href="/<%- data.assigned[i].uuid %>"><%- data.assigned[i].time.toTimeString() %> - <%- data.assigned[i].fixture %> </a>: <br/>
-          <%- data.assigned[i].uuid %>
-        </li>
+      <% for(var i = 0; i <allScans.length; i++){%>
+        <% if(allScans[i].fixture) { %>
+          <li>
+            <a href="/<%- allScans[i].uuid %>"><%- allScans[i].time.toTimeString() %> - <%- allScans[i].fixture %> </a> :<br/>
+            <%- allScans[i].uuid %>
+          </li>
+        <% } else { %>
+          <li>
+            <a href="/<%- allScans[i].uuid %>"><%- allScans[i].time.toTimeString() %>
+             </a>
+            <span style="color:<%- allScans[i].status==='fixed'?'orange':'red'%>" >
+              :<br/>
+              <%- allScans[i].uuid %>
+            </span>
+          </li>
+        <%}%>
       <%}%>
     </ul>
   </article>
