@@ -3,30 +3,22 @@
   <h1>Recently scanned QR code</h1>
   <article class="col-xs-12">
     <h2>Not Found</h2>
-    <ul>
+    <ul class='recent-list'>
       <% for(var i = 0; i<data.unassigned.length; i++){%>
-<<<<<<< HEAD
-        <li class='recent-list'>
-=======
         <li>
->>>>>>> 4dd6556... ADD: item links to recent items, TWEAK: styling sizes for uuids and notFound emoji
-        <%- data.unassigned[i].time %> - <%- data.unassigned[i].fixture %>:  <br />
-        <div style="font-size: 0.9em"><%- data.unassigned[i].uuid %></div>
+          <a href="/<%- data.unassigned[i].uuid %>"><%- data.unassigned[i].time %> - <%- data.unassigned[i].status %> </a> :<br/>
+          <%- data.unassigned[i].uuid %>
         </li>
       <%}%>
     </ul>
   </article>
   <article class="col-xs-12">
     <h2>Recent Item</h2>
-    <ul>
+    <ul class='recent-list'>
       <% for(var i = 0; i<data.assigned.length; i++){%>
-<<<<<<< HEAD
-        <li class='recent-list'>
-=======
         <li>
->>>>>>> 4dd6556... ADD: item links to recent items, TWEAK: styling sizes for uuids and notFound emoji
-          <%- data.assigned[i].time %> - <%- data.assigned[i].fixture %>: <br />
-          <a href="/<%- data.assigned[i].uuid %>" style="font-size:0.9em"> <%- data.assigned[i].uuid %> </a>
+          <a href="/<%- data.assigned[i].uuid %>"><%- data.assigned[i].time %> - <%- data.assigned[i].fixture %> </a>: <br/>
+          <%- data.assigned[i].uuid %>
         </li>
       <%}%>
     </ul>
