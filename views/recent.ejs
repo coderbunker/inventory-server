@@ -6,7 +6,7 @@
     <ul class='recent-list'>
       <% for(var i = 0; i<data.unassigned.length; i++){%>
         <li>
-          <a href="/<%- data.unassigned[i].uuid %>"><%- data.unassigned[i].time %> - <%- data.unassigned[i].status %> </a> :<br/>
+          <a href="/<%- data.unassigned[i].uuid %>"><%- data.unassigned[i].time.toTimeString() %> - <%- data.unassigned[i].status %> </a> :<br/>
           <%- data.unassigned[i].uuid %>
         </li>
       <%}%>
@@ -17,7 +17,7 @@
     <ul class='recent-list'>
       <% for(var i = 0; i<data.assigned.length; i++){%>
         <li>
-          <a href="/<%- data.assigned[i].uuid %>"><%- data.assigned[i].time %> - <%- data.assigned[i].fixture %> </a>: <br/>
+          <a href="/<%- data.assigned[i].uuid %>"><%- data.assigned[i].time.toTimeString() %> - <%- data.assigned[i].fixture %> </a>: <br/>
           <%- data.assigned[i].uuid %>
         </li>
       <%}%>

@@ -11,12 +11,6 @@ const recentScans = {
   unassigned: [],
 };
 
-const date = new Date();
-const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-const hour = date.getHours();
-const dayOfWeek = date.getDay();
-const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const scanTime = week[dayOfWeek] + ' ' + hour + ':' + minutes;
 
 function logScanned(uuid, fixture) {
   // TRICK: fixture tells if the the uuid was found in database or not
@@ -24,14 +18,13 @@ function logScanned(uuid, fixture) {
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
     return;
   }
-
+  const now = new Date();
   if (!fixture) {
-    recentScans.unassigned.push({ time: scanTime, status: 'missing', uuid });
+    recentScans.unassigned.push({ time: now, status: 'missing', uuid });
     return;
   }
   recentScans.unassigned.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-
-  recentScans.assigned.push({ time: scanTime, fixture, uuid });
+  recentScans.assigned.push({ time: now, fixture, uuid });
 }
 
 
