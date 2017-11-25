@@ -20,11 +20,11 @@ function logScanned(uuid, fixture) {
   }
   const now = new Date();
   if (!fixture) {
-    recentScans.unassigned.push({ time: now, status: 'missing', uuid });
+    recentScans.unassigned.unshift({ time: now, status: 'missing', uuid });
     return;
   }
   recentScans.unassigned.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-  recentScans.assigned.push({ time: now, fixture, uuid });
+  recentScans.assigned.unshift({ time: now, fixture, uuid });
 }
 
 
