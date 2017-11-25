@@ -6,17 +6,21 @@ const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
 
 const app = express();
 
-const recentScans = {
-  assigned: [],
-  unassigned: [],
-};
+const allScans = [];
 
-const date = new Date();
-const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-const hour = date.getHours();
-const dayOfWeek = date.getDay();
-const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const scanTime = week[dayOfWeek] + ' ' + hour + ':' + minutes;
+function logScanned(uuid, fixture) {
+  // TRICK: fixture tells if the the uuid was found in database or not
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
+    return;
+  }
+  const now = new Date();
+  if (!fixture) {
+    allScans.unshift({ time: now, status: 'missing', uuid });
+    return;
+  }
+  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
+  allScans.unshift({ time: now, fixture, uuid });
+}
 
 app.set('view engine', 'ejs');
 
@@ -47,21 +51,21 @@ app.get('/qrlist', (req, res) => {
 });
 
 app.get('/recent', (req, res) => {
-  res.render('recent', { data: recentScans });
+  res.render('recent', { allScans });
 });
 
 app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      recentScans.unassigned.push([scanTime, req.params.uuid]);
+      logScanned(req.params.uuid);
       res.render('notFound', {
         item: '',
         id: req.params.uuid,
       });
       return;
     }
-    recentScans.assigned.push([scanTime, matches[0].fixture, req.params.uuid]);
+    logScanned(req.params.uuid, matches[0].fixture);
     matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);

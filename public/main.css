@@ -10,12 +10,13 @@
     position: relative;
 }
 
-
 .recent-list {
     list-style-type: none;
-    padding-bottom: 5px;
-} 
-
+    padding-left: 0;
+}
+.recent-list li {
+  padding-bottom: 5px;
+}
 
 #appTitle {
     color: white;
@@ -94,7 +95,3 @@ article {
   padding-top: 1em;
   padding-bottom: 1em;
 }
-
-/*@media print {
-  font-size: 0.2em;
-}*/
