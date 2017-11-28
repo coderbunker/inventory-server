@@ -27,7 +27,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/public`));
 
 app.get(['/favicon.ico', '/robots.txt'], (req, res) => {
-  res.status(204);
+  res.sendStatus(204);
 });
 
 app.get('/search', (req, res) => {
