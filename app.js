@@ -59,7 +59,7 @@ app.get('/:uuid', (req, res) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
       logScanned(req.params.uuid);
-      res.render('notFound', {
+      res.status(404).render('notFound', {
         item: '',
         id: req.params.uuid,
       });
