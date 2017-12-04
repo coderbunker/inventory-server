@@ -7,24 +7,45 @@
           <span> <a href="/search?floor=<%- matches[i].floor %>&room=<%- matches[i].room %>&location=<%- matches[i].location %>"> <%- matches[i].location.toLowerCase() %>  </a></span> >
           <span> <a href="/search?fixture=<%- matches[i].fixture %>"> <%- matches[i].fixture.toLowerCase() %> </a></span>
         </div>
-        <div class="well col-xs-12">
-          <div class="col-xs-2">
-            <% if (matches[i].picture === undefined || matches[i].picture === '') { %>
-              <img class="itemImg" src="noImg.png" />
-            <% }else{ %>
-              <img class="itemImg" src=" <%- matches[i].picture %> " />
-            <%}%>
+        <% if ( matches[i].uuid) {%>
+          <div class="well col-xs-12">
+            <div class="col-xs-2">
+              <% if (matches[i].picture === undefined || matches[i].picture === '') { %>
+                <img class="itemImg" src="noImg.png" />
+              <% }else{ %>
+                <img class="itemImg" src=" <%- matches[i].picture %> " />
+              <% } %>
+            </div>
+            <div class="itemTitle col-xs-8">
+              <h4> <a href="/<%- matches[i].uuid %>"> <%- matches[i].fixture.toUpperCase().bold() %> </a> </h4>
+              <span> <%- matches[i].model.toLowerCase().italics() %> </span>
+            </div>
+            <div class="itemImg col-xs-2">
+              <% if (matches[i].status  === 'broken') { %>
+                <span class="glyphicon glyphicon-wrench" title="Status: <%- matches[i].status %>" alt="<%- matches[i].status %>" style="color:red"></span>
+              <% } %>
+            </div>
           </div>
-          <div class="itemTitle col-xs-8">
-            <h4> <a href="/<%- matches[i].uuid %>"> <%- matches[i].fixture.toUpperCase().bold() %> </a> </h4>
-            <span> <%- matches[i].model.toLowerCase().italics() %> </span>
+        <%} else {%>
+          <div class="well faded col-xs-12">
+            <div class="col-xs-2">
+              <% if (matches[i].picture === undefined || matches[i].picture === '') { %>
+                <img class="itemImg" src="noImg.png" />
+              <% }else{ %>
+                <img class="itemImg" src=" <%- matches[i].picture %> " />
+              <% } %>
+            </div>
+            <div class="itemTitle col-xs-8">
+            <h4> <%- matches[i].fixture.toUpperCase().bold() %></h4>
+              <span> <%- matches[i].model.toLowerCase().italics() %> </span>
+            </div>
+            <div class="itemImg col-xs-2">
+              <% if (matches[i].status  === 'broken') { %>
+                <span class="glyphicon glyphicon-wrench" title="Status: <%- matches[i].status %>" alt="<%- matches[i].status %>" style="color:red"></span>
+              <% } %>
+            </div>
           </div>
-          <div class="itemImg col-xs-2">
-            <% if (matches[i].status  === 'broken') { %>
-              <span class="glyphicon glyphicon-wrench" title="Status: <%- matches[i].status %>" alt="<%- matches[i].status %>" style="color:red"></span>
-            <%}%>
-          </div>
-        </div>
+        <% } %>
       </li>
     <%	} %>
   </ul>
