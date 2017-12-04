@@ -68,7 +68,6 @@ app.get('/:uuid', (req, res) => {
     logScanned(req.params.uuid, matches[0].fixture);
     matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
-      // .filter(item => item.uuid !== '')
       .splice(0, 3);
     res.render('item', { matches });
   });

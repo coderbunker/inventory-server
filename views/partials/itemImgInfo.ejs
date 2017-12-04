@@ -28,9 +28,9 @@
             <%}%>
           <% } else { %>
             <% if (matches[0].similarItems[i].picture === undefined || matches[0].similarItems[i].picture === '') { %>
-              <img class="miniItemImg" src="noImg.png" />
+              <img class="miniItemImg faded" src="noImg.png" />
             <% }else{ %>
-              <img class="miniItemImg" src=" <%- matches[0].similarItems[i].picture %> " />
+              <img class="miniItemImg faded" src=" <%- matches[0].similarItems[i].picture %> " />
             <%}%>
           <% } %>
         </div>
