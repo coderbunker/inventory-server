@@ -1,29 +1,29 @@
-<% if (matches[0].HOWTO) { %>
+<% if (HOWTO) { %>
   <article class="well col-xs-12">
     <h2>How To</h2>
     <div>
-      <%- matches[0].HOWTO %>
+      <%- HOWTO %>
     </div>
   </article>
 <%}%>
-<% if (matches[0].Troubleshooting) { %>
+<% if (Troubleshooting) { %>
   <article class="well col-xs-12">
     <h2>Need Help</h2>
     <div>
-      <%- matches[0].Troubleshooting %>
+      <%- Troubleshooting %>
     </div>
   </article>
 <% } %>
-<% if ( matches.similarItems ) { %>
+<% if ( similarItems ) { %>
   <article class="well col-xs-12">
     <h2>Similar Items</h2>
     <div>
-      <% for(var i = 0; i < matches.similarItems.length; i++){ %>
+      <% for(var i = 0; i < similarItems.length; i++){ %>
         <div class='miniSearchItem col-xs-4'>
-          <% if (matches.similarItems[i].picture === undefined || matches.similarItems[i].picture === '') { %>
-            <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
+          <% if (similarItems[i].picture === undefined || similarItems[i].picture === '') { %>
+            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
           <% }else{ %>
-            <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- matches.similarItems[i].picture %> " /> </a>
+            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- similarItems[i].picture %> " /> </a>
           <%}%>
         </div>
       <% } %>
@@ -32,11 +32,11 @@
 <%}%>
 <article class="well col-xs-12">
   <h2>Details</h2>
-  <%- matches[0].details %>
+  <%- details %>
   <ul>
-    <li>model: <%- matches[0].model %></li>
-    <li>serial: <%- matches[0].serial %></li>
-    <li>owner: <%- matches[0].owner %></li>
-    <li>UUID: <%- matches[0].uuid %></li>
+    <li>model: <%- model %></li>
+    <li>serial: <%- serial %></li>
+    <li>owner: <%- owner %></li>
+    <li>UUID: <%- uuid %></li>
   </ul>
 </article>

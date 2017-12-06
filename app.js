@@ -66,10 +66,10 @@ app.get('/:uuid', (req, res) => {
       return;
     }
     logScanned(req.params.uuid, matches[0].fixture);
-    matches.similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
+    matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
-    res.render('item', { matches });
+    res.render('item', matches[0]);
   });
 });
 
