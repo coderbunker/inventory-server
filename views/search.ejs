@@ -1,5 +1,7 @@
 <% include ./partials/header %>
 <div class="resultContainer col-xs-12">
-  <% include ./partials/itemCards %>
+  <% matches.forEach(function(el) { %>
+    <%- include('./partials/itemCards', el); %>
+  <% }) %>
 </div>
 <% include ./partials/footer %>
