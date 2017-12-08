@@ -14,17 +14,25 @@
     </div>
   </article>
 <% } %>
-<% if ( matches.similarItems ) { %>
+<% if ( matches[0].similarItems.length > 0 ) { %>
   <article class="well col-xs-12">
     <h2>Similar Items</h2>
     <div>
-      <% for(var i = 0; i < matches.similarItems.length; i++){ %>
+      <% for(var i = 0; i < matches[0].similarItems.length; i++){ %>
         <div class='miniSearchItem col-xs-4'>
-          <% if (matches.similarItems[i].picture === undefined || matches.similarItems[i].picture === '') { %>
-            <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
-          <% }else{ %>
-            <a href="/<%- matches.similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- matches.similarItems[i].picture %> " /> </a>
-          <%}%>
+          <% if (matches[0].similarItems[i].uuid) { %>
+            <% if (matches[0].similarItems[i].picture === undefined || matches[0].similarItems[i].picture === '') { %>
+              <a href="/<%- matches[0].similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
+            <% }else{ %>
+              <a href="/<%- matches[0].similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- matches[0].similarItems[i].picture %> " /> </a>
+            <%}%>
+          <% } else { %>
+            <% if (matches[0].similarItems[i].picture === undefined || matches[0].similarItems[i].picture === '') { %>
+              <img class="miniItemImg faded" src="noImg.png" />
+            <% }else{ %>
+              <img class="miniItemImg faded" src=" <%- matches[0].similarItems[i].picture %> " />
+            <%}%>
+          <% } %>
         </div>
       <% } %>
     </div>
