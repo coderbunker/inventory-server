@@ -1,23 +1,18 @@
 <% if (HOWTO) { %>
   <article class="well col-xs-12">
     <h2>How To</h2>
-    <div>
-      <%- HOWTO %>
-    </div>
+    <%- HOWTO %>
   </article>
 <%}%>
 <% if (Troubleshooting) { %>
   <article class="well col-xs-12">
     <h2>Need Help</h2>
-    <div>
-      <%- Troubleshooting %>
-    </div>
+    <%- Troubleshooting %>
   </article>
 <% } %>
 <% if ( similarItems.length > 0 ) { %>
   <article class="well col-xs-12">
     <h2>Similar Items</h2>
-    <div>
       <% for(var i = 0; i < similarItems.length; i++){ %>
         <div class='miniSearchItem col-xs-4'>
           <% if (!similarItems[i].picture) { %>
@@ -35,7 +30,6 @@
           <% } %>
          </div>
       <% } %>
-    </div>
   </article>
 <%}%>
 <article class="well col-xs-12">
