@@ -1,33 +1,35 @@
 <% if (HOWTO) { %>
   <article class="well col-xs-12">
     <h2>How To</h2>
-    <div>
-      <%- HOWTO %>
-    </div>
+    <%- HOWTO %>
   </article>
 <%}%>
 <% if (Troubleshooting) { %>
   <article class="well col-xs-12">
     <h2>Need Help</h2>
-    <div>
-      <%- Troubleshooting %>
-    </div>
+    <%- Troubleshooting %>
   </article>
 <% } %>
 <% if ( similarItems.length > 0 ) { %>
   <article class="well col-xs-12">
     <h2>Similar Items</h2>
-    <div>
       <% for(var i = 0; i < similarItems.length; i++){ %>
         <div class='miniSearchItem col-xs-4'>
-          <% if (similarItems[i].picture === undefined || similarItems[i].picture === '') { %>
-            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
-          <% }else{ %>
-            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- similarItems[i].picture %> " /> </a>
-          <%}%>
-        </div>
+          <% if (!similarItems[i].picture) { %>
+            <% if (!similarItems[i].uuid) { %>
+              <img class="miniItemImg faded" src="noImg.png" />
+            <% }else{ %>
+              <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
+            <%}%>
+          <% } else{ %>
+            <% if (!similarItems[i].uuid) { %>
+              <img class="miniItemImg faded" src=" <%- similarItems[i].picture %> " />
+            <% }else{ %>
+              <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- similarItems[i].picture %> " /> </a>
+            <%} %>
+          <% } %>
+         </div>
       <% } %>
-    </div>
   </article>
 <%}%>
 <article class="well col-xs-12">

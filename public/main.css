@@ -1,42 +1,42 @@
 .logo {
-    background: url('logo.png');
-    height: 7em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    width: 100%;
-    background-position: right;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
+  background: url('logo.png');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 7em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  position: relative;
+  width: 100%;
 }
 
 .recent-list {
-    list-style-type: none;
-    padding-left: 0;
+  list-style-type: none;
+  padding-left: 0;
 }
 .recent-list li {
   padding-bottom: 5px;
 }
 
 #appTitle {
-    color: white;
-    text-align: center;
-    font-size: 3em;
-    white-space: nowrap;
-    overflow: hidden;
+  color: white;
+  font-size: 3em;
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 500px) {
-    #appTitle {
-        color: white;
-        text-align: left;
-        font-size: 1.5em;
-        padding-top: 13px;
-        padding-left: 0;
-        margin-left: 0;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+  #appTitle {
+    color: white;
+    font-size: 1.5em;
+    margin-left: 0;
+    overflow: hidden;
+    padding-left: 0;
+    padding-top: 13px;
+    text-align: left;
+    white-space: nowrap;
+  }
 }
 
 .resultContainer {
@@ -44,18 +44,22 @@
     overflow: hidden;
 }
 
+.faded{
+ opacity: 0.5;
+}
+
 .itemImg {
-    margin-left: -3vw;
-    width: 300%;
-    font-size: 11vw;
+  font-size: 11vw;
+  margin-left: -3vw;
+  width: 300%;
 }
 
 @media screen and (min-width: 500px) {
-    .itemImg {
-        margin-left: 0;
-        width: 100%;
-        font-size: 9vw;
-    }
+  .itemImg {
+    font-size: 9vw;
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 .itemTitle {
@@ -63,35 +67,35 @@
 }
 
 .infoBox {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 article {
-    border-radius: 3px;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-    background-color: whitesmoke;
+  background-color: whitesmoke;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  padding-top: 1em;
 }
 
 .miniSearchItem{
-  padding-top: 1em;
   padding-bottom: 1em;
+  padding-top: 1em;
 }
 .miniItemImg{
   width:100%;
 
 }
 .searchResultList {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .stickers{
   border: 1px dotted black;
   font-size: 30%;
-  padding-top: 1em;
   padding-bottom: 1em;
+  padding-top: 1em;
 }
