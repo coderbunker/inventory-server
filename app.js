@@ -24,6 +24,16 @@ function logScanned(uuid, fixture) {
   allScans.unshift({ time: now, fixture, uuid });
 }
 
+function modifyContent(obj, allObj) {
+  obj.HOWTO = marked(obj.HOWTO);
+  obj.details = marked(obj.details);
+  obj.Troubleshooting = marked(obj.Troubleshooting);
+  obj.similarItems = searchDatabase({ fixture: obj.fixture }, allObj)
+    .filter(item => item.uuid !== obj.uuid)
+    .splice(0, 3);
+  return obj;
+}
+
 app.set('view engine', 'ejs');
 
 app.use(express.static(`${__dirname}/public`));
@@ -68,13 +78,7 @@ app.get('/:uuid', (req, res) => {
       return;
     }
     logScanned(req.params.uuid, matches[0].fixture);
-    matches[0].HOWTO = marked(matches[0].HOWTO);
-    matches[0].details = marked(matches[0].details);
-    matches[0].Troubleshooting = marked(matches[0].Troubleshooting);
-    matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
-      .filter(item => item.uuid !== matches[0].uuid)
-      .splice(0, 3);
-    res.render('item', matches[0]);
+    res.render('item', modifyContent(matches[0], allItems));
   });
 });
 
