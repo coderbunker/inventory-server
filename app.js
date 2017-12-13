@@ -68,16 +68,13 @@ app.get('/:uuid', (req, res) => {
       return;
     }
     logScanned(req.params.uuid, matches[0].fixture);
+    matches[0].HOWTO = marked(matches[0].HOWTO);
+    matches[0].details = marked(matches[0].details);
+    matches[0].Troubleshooting = marked(matches[0].Troubleshooting);
     matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
-            // const mark = marked(matches[0].HOWTO)
-            // function markItUp(a) {
-            //   return {__html: a};
-            // }
-            // <%- __html %>
-          // res.render('notFound', markItUp(mark));
-    res.render('item', matches[0]);;
+    res.render('item', matches[0]);
   });
 });
 
