@@ -1,5 +1,7 @@
 const express = require('express');
 
+const marked = require('marked');
+
 const qr = require('qr-image');
 
 const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
@@ -69,7 +71,13 @@ app.get('/:uuid', (req, res) => {
     matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
-    res.render('item', matches[0]);
+            // const mark = marked(matches[0].HOWTO)
+            // function markItUp(a) {
+            //   return {__html: a};
+            // }
+            // <%- __html %>
+          // res.render('notFound', markItUp(mark));
+    res.render('item', matches[0]);;
   });
 });
 
