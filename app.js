@@ -8,18 +8,30 @@ const app = express();
 
 const allScans = [];
 
-function logScanned(uuid, fixture) {
+function logScanned(uuid, allMatches) {
+  const now = new Date();
   // TRICK: fixture tells if the the uuid was found in database or not
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
     return;
   }
-  const now = new Date();
-  if (!fixture) {
-    allScans.unshift({ time: now, status: 'missing', uuid });
+  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
+  if (allMatches.length > 1) {
+    allMatches.map((item, index) =>
+      allScans.unshift({
+        time: now,
+        fixture: allMatches[index].fixture ? allMatches[index].fixture : '',
+        status: allMatches[index].fixture ? '' : 'missing',
+        uuid,
+        double: true,
+      }));
     return;
   }
-  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-  allScans.unshift({ time: now, fixture, uuid });
+  allScans.unshift({
+    time: now,
+    fixture: allMatches[0].fixture ? allMatches[0].fixture : '',
+    status: allMatches[0].fixture ? '' : 'missing',
+    uuid,
+  });
 }
 
 app.set('view engine', 'ejs');
@@ -65,7 +77,7 @@ app.get('/:uuid', (req, res) => {
       });
       return;
     }
-    logScanned(req.params.uuid, matches[0].fixture);
+    logScanned(req.params.uuid, matches);
     matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
