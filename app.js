@@ -74,7 +74,7 @@ app.get('/:uuid', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('https://cryptic-woodland-88390.herokuapp.com/');
+  res.render('home', {});
 });
 
 const port = process.env.PORT || 1234;
