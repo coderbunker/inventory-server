@@ -1,10 +1,13 @@
 const express = require('express');
 
-const marked = require('marked');
-
 const qr = require('qr-image');
 
-const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
+const {
+  loadDatabase,
+  searchDatabase,
+  addMarkdown,
+  addSimilarItems,
+} = require('./googleSpreadsheet');
 
 const app = express();
 
@@ -22,16 +25,6 @@ function logScanned(uuid, fixture) {
   }
   allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
   allScans.unshift({ time: now, fixture, uuid });
-}
-
-function modifyContent(obj, allObj) {
-  obj.HOWTO = marked(obj.HOWTO);
-  obj.details = marked(obj.details);
-  obj.Troubleshooting = marked(obj.Troubleshooting);
-  obj.similarItems = searchDatabase({ fixture: obj.fixture }, allObj)
-    .filter(item => item.uuid !== obj.uuid)
-    .splice(0, 3);
-  return obj;
 }
 
 app.set('view engine', 'ejs');
@@ -68,6 +61,7 @@ app.get('/recent', (req, res) => {
 
 app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
+    addMarkdown(allItems);
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
       logScanned(req.params.uuid);
@@ -77,8 +71,10 @@ app.get('/:uuid', (req, res) => {
       });
       return;
     }
+    addSimilarItems(matches[0], allItems);
     logScanned(req.params.uuid, matches[0].fixture);
-    res.render('item', modifyContent(matches[0], allItems));
+    // modifyContent(matches[0], allItems
+    res.render('item', matches[0]);
   });
 });
 

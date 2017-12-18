@@ -1,5 +1,6 @@
 const google = require('googleapis');
 const keys = require('./config/keys');
+const marked = require('marked');
 
 function rowToObject(val, lab) {
   const o = {};
@@ -33,7 +34,28 @@ function searchDatabase(query, rows) {
   return matches;
 }
 
+function addSimilarItems(object, objects) {
+  const obj = object;
+  const allObj = objects;
+  obj.similarItems = searchDatabase({ fixture: obj.fixture }, allObj)
+    .filter(item => item.uuid !== obj.uuid)
+    .splice(0, 3);
+  return obj;
+}
+
+function addMarkdown(objects) {
+  const objs = objects;
+  for (let i = 0; i < objs.length; i += 1) {
+    objs[i].HOWTO = marked(objs[i].HOWTO);
+    objs[i].details = marked(objs[i].details);
+    objs[i].Troubleshooting = marked(objs[i].Troubleshooting);
+  }
+  return objs;
+}
+
 module.exports = {
   loadDatabase,
   searchDatabase,
+  addMarkdown,
+  addSimilarItems,
 };
