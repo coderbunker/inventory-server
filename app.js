@@ -10,21 +10,13 @@ const allScans = [];
 
 function logScanned(uuid, allMatches) {
   const now = new Date();
-  // TRICK: fixture tells if the the uuid was found in database or not
+  // TRICK: only record uuids
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
     return;
   }
   allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-  console.log('allmatch: ', allMatches);
   if (allMatches.length > 1) {
-    allMatches.map((item, index) =>
-      allScans.unshift({
-        time: now,
-        fixture: allMatches[index].fixture ? allMatches[index].fixture : '',
-        status: allMatches[index].fixture ? '' : 'missing',
-        uuid,
-        double: true,
-      }));
+    allMatches.map((item, index) => allScans.unshift({ double: true }));
     return;
   }
   allScans.unshift({
@@ -71,7 +63,7 @@ app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      logScanned(req.params.uuid, [{fixture: null}]);
+      logScanned(req.params.uuid, [{ fixture: null }]);
       res.status(404).render('notFound', {
         item: '',
         id: req.params.uuid,
