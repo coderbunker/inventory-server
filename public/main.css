@@ -23,7 +23,7 @@
   font-size: 3em;
   overflow: hidden;
   height: 100%;
-  line-height: 1.5em;
+  line-height: 1.6em;
   text-align: center;
   white-space: nowrap;
 }
@@ -32,7 +32,7 @@
   #appTitle {
     color: white;
     font-size: 1.5em;
-    line-height: 3em;
+    line-height: 3.25em;
     margin-left: 0;
     overflow: hidden;
     padding-left: 0;
@@ -84,6 +84,7 @@
   padding-bottom: 1em;
   padding-top: 1em;
 }
+
 .notFound{
   margin-top:2em;
 }
