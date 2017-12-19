@@ -18,11 +18,11 @@
   </div>
   <div class="itemTitle col-xs-8">
     <% if (uuid) { %>
-      <h4> <a href="/<%- uuid %>"> <%- fixture.toUpperCase().bold() %> </a> </h4>
+      <h4> <a href="/<%- uuid %>"> <%- fixture.bold() %> </a> </h4>
     <% } else { %>
-      <h4> <%- fixture.toUpperCase().bold() %> </h4>
+      <h4> <%- fixture.bold() %> </h4>
     <% } %>
-    <span> <%- model.toLowerCase().italics() %> </span>
+    <span> <%- model.italics() %> </span>
   </div>
   <div class="itemImg col-xs-2">
     <% if (status === 'broken') { %>
