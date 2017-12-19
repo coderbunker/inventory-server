@@ -15,6 +15,7 @@ function logScanned(uuid, allMatches) {
     return;
   }
   allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
+  console.log('allmatch: ', allMatches);
   if (allMatches.length > 1) {
     allMatches.map((item, index) =>
       allScans.unshift({
@@ -70,7 +71,7 @@ app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      logScanned(req.params.uuid);
+      logScanned(req.params.uuid, [{fixture: null}]);
       res.status(404).render('notFound', {
         item: '',
         id: req.params.uuid,
