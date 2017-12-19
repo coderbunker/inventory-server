@@ -8,7 +8,8 @@ const app = express();
 
 const allScans = [];
 
-function logScanned(uuid, allMatches) {
+function logScanned(uuid, matches) {
+  let allMatches = matches;
   const now = new Date();
   // TRICK: only record uuids
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
@@ -16,14 +17,15 @@ function logScanned(uuid, allMatches) {
   }
   allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
   if (allMatches.length > 1) {
-    allMatches.map((item, index) => allScans.unshift({ double: true }));
-    return;
+    allMatches = allMatches.splice(0, 1);
+    allMatches[0].double = true;
   }
   allScans.unshift({
     time: now,
     fixture: allMatches[0].fixture ? allMatches[0].fixture : '',
     status: allMatches[0].fixture ? '' : 'missing',
     uuid,
+    double: allMatches[0].double,
   });
 }
 
