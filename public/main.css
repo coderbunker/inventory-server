@@ -42,6 +42,7 @@
 .resultContainer {
     margin-top: 1em;
     overflow: hidden;
+    width: 100%;
 }
 
 .faded{
