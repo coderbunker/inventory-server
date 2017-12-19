@@ -46,21 +46,43 @@
   overflow: hidden;
   width: 100%;
 }
-
+.card{
+  background-color: #DCDCDC;
+  border-bottom: 1px solid #000;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
 .faded{
   opacity: 0.5;
 }
-
+.pic{
+  /*border: 1px dotted blue;*/
+  /*padding: 0.5em 0 0.5em 0;*/
+}
+.tit{
+  /*border: 1px dotted red;*/
+}
+.sta{
+  /*border: 1px dotted green;*/
+  /*padding: 0.5em 0 0.5em 0;*/
+}
+.status{
+  margin: 0.5em 0 0.5em -6vw;
+  width: 150%;
+}
 .itemImg {
-  font-size: 11vw;
-  margin-left: -3vw;
-  width: 300%;
+  border-radius: 10px;
+  margin: 0.5em 0 0.5em -6vw;
+  width: 150%;
 }
 
 @media screen and (min-width: 500px) {
   .itemImg {
-    font-size: 9vw;
-    margin-left: 0;
+    margin: 0.5em 0 0.5em -2vw;
+    width: 100%;
+  }
+  .status{
+    margin: 0.5em 0 0.5em 0;
     width: 100%;
   }
 }
