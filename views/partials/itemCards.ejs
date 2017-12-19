@@ -11,9 +11,17 @@
 <% } %>
   <div class="col-xs-2">
     <% if (picture === undefined || picture === '') { %>
-      <a href="/<%- uuid %>"> <img class="itemImg" src="noImg.png" /> </a>
+      <% if (uuid) { %>
+        <a href="/<%- uuid %>"> <img class="itemImg" src="noImg.png" /> </a>
+      <% } else { %>
+        <img class="itemImg" src="noImg.png" />
+      <% } %>
     <% }else{ %>
-      <a href="/<%- uuid %>"><img class="itemImg" src=" <%- picture %> " /> </a>
+      <% if (uuid) { %>
+        <a href="/<%- uuid %>"><img class="itemImg" src=" <%- picture %> " /> </a>
+      <% } else { %>
+        <img class="itemImg" src=" <%- picture %> " />
+      <% } %>
     <%}%>
   </div>
   <div class="itemTitle col-xs-8">
