@@ -55,17 +55,7 @@
 .faded{
   opacity: 0.5;
 }
-.pic{
-  /*border: 1px dotted blue;*/
-  /*padding: 0.5em 0 0.5em 0;*/
-}
-.tit{
-  /*border: 1px dotted red;*/
-}
-.sta{
-  /*border: 1px dotted green;*/
-  /*padding: 0.5em 0 0.5em 0;*/
-}
+
 .status{
   margin: 0.5em 0 0.5em -6vw;
   width: 150%;
@@ -97,7 +87,8 @@
 }
 
 .miniItemImg{
-  width:100%;
+  border-radius: 10px;
+  width: 100%;
 }
 
 .stickers{
