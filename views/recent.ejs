@@ -4,16 +4,19 @@
   <ul class='recent-list'>
     <% for (var i = 0; i < allScans.length; i++) { %>
       <li>
+        <%- allScans[i].time.toTimeString() %> -
         <% if (allScans[i].fixture) { %>
-          <a href="/<%- allScans[i].uuid %>"> <%- allScans[i].time.toTimeString() %> - <%- allScans[i].fixture %> </a> :<br/>
+          <%- allScans[i].fixture %>
         <% } else { %>
-          <a href="/<%- allScans[i].uuid %>" style="color: <%- allScans[i].status === 'fixed' ? 'orange' : 'red' %>"> <%- allScans[i].time.toTimeString() %> - Missing Details! </a> :<br/>
+          ???
         <% } %>
-        <%- allScans[i].uuid %>
+        : <br/>
+        <a href="/<%- allScans[i].uuid %>"><%- allScans[i].uuid %></a>
+        <% if (!allScans[i].fixture) { %>
+          <a href="<%- allScans[i].link %>" style="color: <%- allScans[i].status === 'fixed' ? 'orange' : 'red' %>">Missing Details!</a>
+        <% } %>
         <% if (allScans[i].double) { %>
-          <span style="color: red" >
-            Duplicate UUID!
-          </span>
+          <a href="<%- allScans[i].link %>" style="color: red">Duplicate UUID!</a>
         <% } %>
       </li>
     <% } %>

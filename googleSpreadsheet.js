@@ -6,7 +6,7 @@ function rowToObject(val, lab, index) {
   for (let i = 0; i < lab.length; i += 1) {
     o[lab[i]] = val[i];
   }
-  o.cellRef = 'https://docs.google.com/spreadsheets/d/1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY/edit#gid=0&range=A' + index;
+  o.cellRef = 'https://docs.google.com/spreadsheets/d/1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY/edit#gid=0&range=A' + index + ':T' + index;
   return o;
 }
 
@@ -22,7 +22,7 @@ function loadDatabase(callback) {
       return;
     }
     return callback(response.values.map((row, index) =>
-      rowToObject(row, response.values[0], index)).splice(1));
+      rowToObject(row, response.values[0], index + 1)).splice(1));
   });
 }
 

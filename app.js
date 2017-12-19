@@ -26,6 +26,7 @@ function logScanned(uuid, matches) {
     status: allMatches[0].fixture ? '' : 'missing',
     uuid,
     double: allMatches[0].double,
+    link: allMatches[0].cellRef,
   });
 }
 
@@ -39,9 +40,10 @@ app.get(['/favicon.ico', '/robots.txt'], (req, res) => {
 
 app.get('/search', (req, res) => {
   loadDatabase((allItems) => {
+    console.log(allItems);
     res.render('search', {
       matches: searchDatabase(req.query, allItems).sort((a, b) =>
-      (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
+        (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
     });
   });
 });
