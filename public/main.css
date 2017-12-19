@@ -40,13 +40,13 @@
 }
 
 .resultContainer {
-    margin-top: 1em;
-    overflow: hidden;
-    width: 100%;
+  margin-top: 1em;
+  overflow: hidden;
+  width: 100%;
 }
 
 .faded{
- opacity: 0.5;
+  opacity: 0.5;
 }
 
 .itemImg {
@@ -64,34 +64,23 @@
 }
 
 .itemTitle {
-    text-align: center;
-}
-
-.infoBox {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  text-align: center;
 }
 
 article {
-  background-color: whitesmoke;
+  /*background-color: whitesmoke;
   border-radius: 3px;
   margin-bottom: 1em;
-  padding-bottom: 1em;
-  padding-top: 1em;
+  padding: 0;*/
 }
 
 .miniSearchItem{
   padding-bottom: 1em;
   padding-top: 1em;
 }
+
 .miniItemImg{
   width:100%;
-
-}
-.searchResultList {
-  list-style: none;
-  padding: 0;
 }
 
 .stickers{
