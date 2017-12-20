@@ -54,7 +54,7 @@ app.get('/qrlist', (req, res) => {
       .filter(item => item.uuid !== '')
       .filter(item => item.uuid !== undefined)
       .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
-    qrList.forEach(item => item.qr = qr.imageSync('http://url.coderbunker.com/' + item.uuid, { type: 'svg' }));
+    qrList.forEach(item => item.qr = qr.imageSync(item.uuid, { type: 'svg' }));
     res.render('qrList', { matches: qrList });
   });
 });
@@ -75,6 +75,9 @@ app.get('/:uuid', (req, res) => {
       return;
     }
     logScanned(req.params.uuid, matches);
+    if (matches.length >= 1) {
+      console.log(`Too much matches for uuid ${req.params.uuid} length = ${matches.length}`);
+    }
     matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
