@@ -48,8 +48,7 @@
 }
 
 .card{
-  /*background-color: #DCDCDC;*/
-  /*border-bottom: 1px solid #000;*/
+  background-color: #DCDCDC;
   border-radius: 10px;
   margin-bottom: 1em;
   padding: 1em 0 1em 0;
