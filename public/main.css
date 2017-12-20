@@ -46,49 +46,58 @@
   overflow: hidden;
   width: 100%;
 }
+
 .card{
-  background-color: #DCDCDC;
-  border-bottom: 1px solid #000;
+  /*background-color: #DCDCDC;*/
+  /*border-bottom: 1px solid #000;*/
   border-radius: 10px;
   margin-bottom: 1em;
+  padding: 1em 0 1em 0;
 }
+
 .faded{
   opacity: 0.5;
 }
 
 .status{
-  margin: 0.5em 0 0.5em -6vw;
+  margin: 0 0 0 -6vw;
   width: 150%;
 }
 .itemImg {
   border-radius: 10px;
-  margin: 0.5em 0 0.5em -6vw;
+  margin: 0 0 0 -4vw;
   width: 150%;
 }
 
 @media screen and (min-width: 500px) {
   .itemImg {
-    margin: 0.5em 0 0.5em -2vw;
+    margin: 0 0 0 -1.5vw;
     width: 100%;
   }
   .status{
-    margin: 0.5em 0 0.5em 0;
+    margin: 0 0 0 2vw;
     width: 100%;
   }
 }
 
 .itemTitle {
+  font-size: 1.25em;
   text-align: center;
 }
 
+.infoTitle{
+  font-size: 2em;
+  line-height: 1em;
+  margin-bottom: 0.5em;
+}
+
 .miniSearchItem{
-  padding-bottom: 1em;
-  padding-top: 1em;
+  text-align: center;
 }
 
 .miniItemImg{
   border-radius: 10px;
-  width: 100%;
+  width: 32.5%;
 }
 
 .stickers{

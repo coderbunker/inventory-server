@@ -26,11 +26,11 @@
   </div>
   <div class="itemTitle col-xs-4">
     <% if (uuid) { %>
-      <h4> <a href="/<%- uuid %>"> <%- fixture.bold() %> </a> </h4>
+      <a href="/<%- uuid %>"> <%- fixture.bold() %> </a>
     <% } else { %>
-      <h4> <%- fixture.bold() %> </h4>
+      <%- fixture.bold() %>
     <% } %>
-    <span> <%- model.italics() %> </span>
+    <div style="font-size: 0.75em"> <%- model.italics() %> </div>
   </div>
   <div class="col-xs-4">
     <% if (status === 'broken') { %>
