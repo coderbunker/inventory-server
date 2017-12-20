@@ -1,13 +1,14 @@
 const google = require('googleapis');
 const keys = require('./config/keys');
 
-function rowToObject(val, lab, index) {
-  const o = {};
-  for (let i = 0; i < lab.length; i += 1) {
-    o[lab[i]] = val[i];
+// creates a dictionary mapping column names with the values
+// ex: { floor : 402, business : coworking, etc..}
+function spreadsheetValuesToObject(values, columns) {
+  const formatedRow = {};
+  for (let i = 0; i < columns.length; i += 1) {
+    formatedRow[columns[i]] = values[i];
   }
-  o.cellRef = 'https://docs.google.com/spreadsheets/d/1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY/edit#gid=0&range=A' + index + ':T' + index;
-  return o;
+  return formatedRow;
 }
 
 function loadDatabase(callback) {
@@ -21,8 +22,10 @@ function loadDatabase(callback) {
       console.log(`The API returned an error: ${err}`);
       return;
     }
-    return callback(response.values.map((row, index) =>
-      rowToObject(row, response.values[0], index + 1)).splice(1));
+    const columns = response.values[0];
+    // map function transforms a list into another list using the given lambda function
+    const formatedRows = response.values.map(row => spreadsheetValuesToObject(row, columns));
+    return callback(formatedRows);
   });
 }
 
