@@ -2,21 +2,21 @@
 <h1>Recently scanned QR codes</h1>
 <article class="col-xs-12">
   <ul class='recent-list'>
-    <% for (var i = 0; i < allScans.length; i++) { %>
+    <% for (let item of allScans.values()) { %>
       <li>
-        <%- allScans[i].time.toTimeString() %> -
-        <% if (allScans[i].fixture) { %>
-          <%- allScans[i].fixture %>
+        <%- item.time.toTimeString() %> -
+        <% if (item.fixture) { %>
+          <%- item.fixture %>
         <% } else { %>
           ???
         <% } %>
         : <br/>
-        <a href="/<%- allScans[i].uuid %>"><%- allScans[i].uuid %></a>
-        <% if (!allScans[i].fixture) { %>
-          <a href="<%- allScans[i].link %>" style="color: <%- allScans[i].status === 'fixed' ? 'orange' : 'red' %>">Missing Details!</a>
+        <a href="/<%- item.uuid %>"><%- item.uuid %></a>
+        <% if (!item.fixture) { %>
+          <a href="<%- item.link %>" style="color: <%- item.status === 'fixed' ? 'orange' : 'red' %>">Missing Details!</a>
         <% } %>
-        <% if (allScans[i].double) { %>
-          <a href="<%- allScans[i].link %>" style="color: red">Duplicate UUID!</a>
+        <% if (item.duplicated) { %>
+          <a href="<%- item.link %>" style="color: red">Duplicate UUID!</a>
         <% } %>
       </li>
     <% } %>

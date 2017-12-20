@@ -6,28 +6,26 @@ const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
 
 const app = express();
 
-const allScans = [];
+const allScans = new Map();
 
-function logScanned(uuid, matches) {
-  let allMatches = matches;
-  const now = new Date();
+function addRecentlyScanned(uuid, item, nbFound = 0) {
   // TRICK: only record uuids
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
     return;
   }
-  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-  if (allMatches.length > 1) {
-    allMatches = allMatches.splice(0, 1);
-    allMatches[0].double = true;
+
+  const duplicatedItem = item;
+
+  duplicatedItem.time = new Date();
+  duplicatedItem.duplicated = nbFound > 1;
+
+  if (nbFound === 0) {
+    duplicatedItem.fixture = '';
+    duplicatedItem.uuid = uuid;
+    duplicatedItem.status = 'missing';
   }
-  allScans.unshift({
-    time: now,
-    fixture: allMatches[0].fixture ? allMatches[0].fixture : '',
-    status: allMatches[0].fixture ? '' : 'missing',
-    uuid,
-    double: allMatches[0].double,
-    link: allMatches[0].cellRef,
-  });
+
+  allScans.set(uuid, duplicatedItem);
 }
 
 app.set('view engine', 'ejs');
@@ -67,17 +65,17 @@ app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
-      logScanned(req.params.uuid, [{ fixture: null }]);
+      addRecentlyScanned(req.params.uuid, {});
       res.status(404).render('notFound', {
         item: '',
         id: req.params.uuid,
       });
       return;
     }
-    logScanned(req.params.uuid, matches);
-    if (matches.length >= 1) {
+    if (matches.length > 1) {
       console.log(`Too much matches for uuid ${req.params.uuid} length = ${matches.length}`);
     }
+    addRecentlyScanned(req.params.uuid, matches[0], matches.length);
     matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
       .filter(item => item.uuid !== matches[0].uuid)
       .splice(0, 3);
