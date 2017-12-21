@@ -73,9 +73,14 @@
     margin: 0 0 0 -1.5vw;
     width: 100%;
   }
+  
   .status{
     margin: 4.5em 0 0 0;
     width: 50%;
+  }
+
+  #miniImg1{
+    margin: 0 0 0 2em;
   }
 }
 
@@ -90,12 +95,17 @@
   margin-bottom: 0.5em;
 }
 
-.miniSearchItem{
-  text-align: left;
+.miniItemImg{
+  width: 30.5%;
 }
 
-.miniItemImg{
-  width: 32.5%;
+#miniImg1{
+  margin: 0 0 0 0.83em;
+}
+
+#miniImg2{
+  float: right;
+  margin-right: 0;
 }
 
 .stickers{

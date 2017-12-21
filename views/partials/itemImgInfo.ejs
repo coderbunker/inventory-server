@@ -3,7 +3,7 @@
     <div class="infoTitle">How To</div>
     <%- HOWTO %>
   </article>
-<%}%>
+<% } %>
 <% if (Troubleshooting) { %>
   <article class="card col-xs-12">
     <div class="infoTitle">Need Help</div>
@@ -17,15 +17,15 @@
       <% for (var i = 0; i < similarItems.length; i++) { %>
         <% if (!similarItems[i].picture) { %>
           <% if (!similarItems[i].uuid) { %>
-            <img class="miniItemImg faded" src="noImg.png" />
+            <img class="miniItemImg faded" src="noImg.png" id='miniImg<%- i %>' />
           <% }else{ %>
-            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" /> </a>
+            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src="noImg.png" id='miniImg<%- i %>'/> </a>
           <%}%>
         <% } else{ %>
           <% if (!similarItems[i].uuid) { %>
-            <img class="miniItemImg faded" src=" <%- similarItems[i].picture %> " />
+            <img class="miniItemImg faded" src=" <%- similarItems[i].picture %> " id='miniImg<%- i %>'/>
           <% }else{ %>
-            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- similarItems[i].picture %> " /> </a>
+            <a href="/<%- similarItems[i].uuid %>"> <img class="miniItemImg" src=" <%- similarItems[i].picture %> " id='miniImg<%- i %>'/> </a>
           <% } %>
         <% } %>
       <% } %>
