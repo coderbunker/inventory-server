@@ -50,7 +50,7 @@
 .card{
   background-color: #EEE;
   border-radius: 10px;
-  margin-bottom: 1em;
+  margin: 0.5em 0;
   padding: 1em 0 1em 0;
 }
 
