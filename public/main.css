@@ -59,9 +59,10 @@
 }
 
 .status{
-  margin: 0 0 0 -6vw;
-  width: 150%;
+  margin: 2em 0 0 0;
+  width: 75%;
 }
+
 .itemImg {
   border-radius: 10px;
   margin: 0 0 0 -4vw;
@@ -74,8 +75,8 @@
     width: 100%;
   }
   .status{
-    margin: 0 0 0 2vw;
-    width: 100%;
+    margin: 4.5em 0 0 0;
+    width: 50%;
   }
 }
 
