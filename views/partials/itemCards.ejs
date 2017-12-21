@@ -1,11 +1,11 @@
-<div class="col-xs-12">
-  <span> <a href="/search?floor=<%- floor %>"> <%- floor.toLowerCase() %> </a></span> >
-  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>"> <%- room.toLowerCase() %>  </a></span> >
-  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>&location=<%- location %>"> <%- location.toLowerCase() %>  </a></span> >
-  <span> <a href="/search?fixture=<%- fixture %>"> <%- fixture.toLowerCase() %> </a></span>
+<div class="breadcrumbs col-xs-12">
+  <span> <a href="/search?floor=<%- floor %>"> <%- floor %> </a></span> >
+  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>"> <%- room %>  </a></span> >
+  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>&location=<%- location %>"> <%- location %>  </a></span> >
+  <span> <a href="/search?fixture=<%- fixture %>"> <%- fixture %> </a></span>
 </div>
 <% if (uuid) { %>
-  <div class="well col-xs-12"> 
+  <div class="well col-xs-12">
 <% } else { %>
   <div class="well faded col-xs-12">
 <% } %>
@@ -18,11 +18,11 @@
   </div>
   <div class="itemTitle col-xs-8">
     <% if (uuid) { %>
-      <h4> <a href="/<%- uuid %>"> <%- fixture.toUpperCase().bold() %> </a> </h4>
+      <h4 > <a href="/<%- uuid %>" style="font-weight: bold"> <%- fixture %> </a> </h4>
     <% } else { %>
-      <h4> <%- fixture.toUpperCase().bold() %> </h4>
+      <h4> <span style="font-weight: bold"> <%- fixture %> </span></h4>
     <% } %>
-    <span> <%- model.toLowerCase().italics() %> </span>
+    <span style="font-style: italic"> <%- model %> </span>
   </div>
   <div class="itemImg col-xs-2">
     <% if (status === 'broken') { %>

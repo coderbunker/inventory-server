@@ -40,12 +40,16 @@
 }
 
 .resultContainer {
-    margin-top: 1em;
-    overflow: hidden;
+  margin-top: 1em;
+  overflow: hidden;
+}
+
+.breadcrumbs{
+  text-transform: lowercase;
 }
 
 .faded{
- opacity: 0.5;
+  opacity: 0.5;
 }
 
 .itemImg {
