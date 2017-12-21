@@ -22,6 +22,8 @@
   color: white;
   font-size: 3em;
   overflow: hidden;
+  height: 100%;
+  line-height: 1.6em;
   text-align: center;
   white-space: nowrap;
 }
@@ -30,67 +32,80 @@
   #appTitle {
     color: white;
     font-size: 1.5em;
+    line-height: 3.25em;
     margin-left: 0;
     overflow: hidden;
     padding-left: 0;
-    padding-top: 13px;
     text-align: left;
     white-space: nowrap;
   }
 }
 
 .resultContainer {
-    margin-top: 1em;
-    overflow: hidden;
+  margin-top: 1em;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card{
+  background-color: #EEE;
+  border-radius: 10px;
+  margin: 0.5em 0;
+  padding: 1em 0 1em 0;
 }
 
 .faded{
- opacity: 0.5;
+  opacity: 0.5;
+}
+
+.status{
+  margin: 2em 0 0 0;
+  width: 75%;
 }
 
 .itemImg {
-  font-size: 11vw;
-  margin-left: -3vw;
-  width: 300%;
+  margin: 0 0 0 -4vw;
+  width: 150%;
 }
 
 @media screen and (min-width: 500px) {
   .itemImg {
-    font-size: 9vw;
-    margin-left: 0;
+    margin: 0 0 0 -1.5vw;
     width: 100%;
+  }
+  
+  .status{
+    margin: 4.5em 0 0 0;
+    width: 50%;
+  }
+
+  #miniImg1{
+    margin: 0 0 0 2em;
   }
 }
 
 .itemTitle {
-    text-align: center;
+  font-size: 1.25em;
+  text-align: center;
 }
 
-.infoBox {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.infoTitle{
+  font-size: 2em;
+  line-height: 1em;
+  margin-bottom: 0.5em;
 }
 
-article {
-  background-color: whitesmoke;
-  border-radius: 3px;
-  margin-bottom: 1em;
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
-
-.miniSearchItem{
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
 .miniItemImg{
-  width:100%;
-
+  width: 30.5%;
 }
-.searchResultList {
-  list-style: none;
-  padding: 0;
+
+#miniImg1{
+  margin: 0 0 0 0.83em;
+}
+
+#miniImg2{
+  float: right;
+  margin-right: 0;
 }
 
 .stickers{
@@ -98,4 +113,8 @@ article {
   font-size: 30%;
   padding-bottom: 1em;
   padding-top: 1em;
+}
+
+.notFound{
+  margin-top:2em;
 }

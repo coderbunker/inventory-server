@@ -5,28 +5,36 @@
   <span> <a href="/search?fixture=<%- fixture %>"> <%- fixture.toLowerCase() %> </a></span>
 </div>
 <% if (uuid) { %>
-  <div class="well col-xs-12"> 
+  <div class="card col-xs-12">
 <% } else { %>
-  <div class="well faded col-xs-12">
+  <div class="card faded col-xs-12">
 <% } %>
-  <div class="col-xs-2">
+  <div class="col-xs-4">
     <% if (picture === undefined || picture === '') { %>
-      <img class="itemImg" src="noImg.png" />
+      <% if (uuid) { %>
+        <a href="/<%- uuid %>"> <img class="itemImg" src="noImg.png" /> </a>
+      <% } else { %>
+        <img class="itemImg" src="noImg.png" />
+      <% } %>
     <% }else{ %>
-      <img class="itemImg" src=" <%- picture %> " />
-    <%}%>
-  </div>
-  <div class="itemTitle col-xs-8">
-    <% if (uuid) { %>
-      <h4> <a href="/<%- uuid %>"> <%- fixture.toUpperCase().bold() %> </a> </h4>
-    <% } else { %>
-      <h4> <%- fixture.toUpperCase().bold() %> </h4>
+      <% if (uuid) { %>
+        <a href="/<%- uuid %>"><img class="itemImg" src=" <%- picture %> " /> </a>
+      <% } else { %>
+        <img class="itemImg" src=" <%- picture %> " />
+      <% } %>
     <% } %>
-    <span> <%- model.toLowerCase().italics() %> </span>
   </div>
-  <div class="itemImg col-xs-2">
+  <div class="itemTitle col-xs-4">
+    <% if (uuid) { %>
+      <a href="/<%- uuid %>"> <%- fixture.bold() %> </a>
+    <% } else { %>
+      <%- fixture.bold() %>
+    <% } %>
+    <div style="font-size: 0.75em"> <%- model.italics() %> </div>
+  </div>
+  <div class="col-xs-4" style='text-align: center'>
     <% if (status === 'broken') { %>
-      <span class="glyphicon glyphicon-wrench" title="Status: <%- status %>" alt="<%- status %>" style="color:red"></span>
-    <%}%>
+      <img class="status" title="Status: <%- status %>" alt="<%- status %>" style="color:red" src="wrench.png" />
+    <% } %>
   </div>
 </div>
