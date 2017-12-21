@@ -64,7 +64,6 @@
 }
 
 .itemImg {
-  border-radius: 10px;
   margin: 0 0 0 -4vw;
   width: 150%;
 }
@@ -96,7 +95,6 @@
 }
 
 .miniItemImg{
-  border-radius: 10px;
   width: 32.5%;
 }
 
