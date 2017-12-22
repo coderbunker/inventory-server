@@ -1,8 +1,8 @@
 <div class="breadcrumbs">
-  <span> <a href="/search?floor=<%- floor %>"> <%- floor.toLowerCase() %> </a></span> >
-  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>"> <%- room.toLowerCase() %>  </a></span> >
-  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>&location=<%- location %>"> <%- location.toLowerCase() %>  </a></span> >
-  <span> <a href="/search?fixture=<%- fixture %>"> <%- fixture.toLowerCase() %> </a></span>
+  <span> <a href="/search?floor=<%- floor %>"> <%- floor %> </a></span> >
+  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>"> <%- room %>  </a></span> >
+  <span> <a href="/search?floor=<%- floor %>&room=<%- room %>&location=<%- location %>"> <%- location %>  </a></span> >
+  <span> <a href="/search?fixture=<%- fixture %>"> <%- fixture %> </a></span>
 </div>
 <% if (uuid) { %>
   <div class="card">
@@ -27,12 +27,12 @@
   <div class="itemTitle">
     <% if (uuid) { %>
       <div class="center">
-        <a href="/<%- uuid %>"> <%- fixture.bold() %> </a>
+        <a href="/<%- uuid %>"> <%- fixture %> </a>
     <% } else { %>
       <div class="center">
-      <%- fixture.bold() %>
+      <%- fixture %>
     <% } %>
-    <div style="font-size: 0.75em"> <%- model.italics() %> </div>
+    <div class="subTitle"> <%- model %> </div>
     </div>
   </div>
   <div class="image right">

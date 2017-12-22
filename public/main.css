@@ -74,8 +74,15 @@
 }
 
 .center {
+  font-weight: bold;
   padding: 20px;
   text-align: center;
+}
+
+.subTitle{
+  font-size: 0.75em;
+  font-style: italic;
+  font-weight: normal;
 }
 
 .right {
