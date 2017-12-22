@@ -61,7 +61,6 @@ app.get('/recent', (req, res) => {
 
 app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
-    addMarkdown(allItems);
     const matches = searchDatabase(req.params, allItems);
     if (matches.length === 0) {
       logScanned(req.params.uuid);
@@ -71,9 +70,9 @@ app.get('/:uuid', (req, res) => {
       });
       return;
     }
+    addMarkdown(matches[0]);
     addSimilarItems(matches[0], allItems);
     logScanned(req.params.uuid, matches[0].fixture);
-    // modifyContent(matches[0], allItems
     res.render('item', matches[0]);
   });
 });
