@@ -47,6 +47,11 @@
   .status{
     width: 35%;
   }
+
+  .sticker{
+    font-size: 40%;
+    width: 19%;
+  }
 }
 
 .resultContainer {
@@ -129,9 +134,15 @@
   margin-right: 0;
 }
 
-.stickers{
+.sticker{
   border: 1px dotted black;
-  font-size: 30%;
-  padding-bottom: 1em;
-  padding-top: 1em;
+  display: inline-block;
+  font-size: 90%;
+  margin: 0;
+  padding: 1em 0;
+  width: 99%;
+}
+
+.qrImg{
+  /*width: 20%;*/
 }

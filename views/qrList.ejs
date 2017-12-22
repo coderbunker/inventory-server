@@ -1,22 +1,18 @@
 <% include ./partials/header %>
-<div class="col-xs-12">
-  <% for ( var i = 0; i < matches.length; i++) {%>
-    <div class="stickers col-xs-3">
-      <div class="col-xs-12">
-        <%- matches[i].floor %> >
-        <%- matches[i].room %> >
-        <%- matches[i].location %> >
-        <%- matches[i].fixture %>
-      </div>
-      <div class="col-xs-12">
+<div class="resultContainer">
+  <center>
+    <% for ( var i = 0; i < matches.length; i++) {%>
+      <div class="sticker">
+        <div class="breadcrumbs">
+          <%- matches[i].floor %> >
+          <%- matches[i].room %> >
+          <%- matches[i].location %> >
+          <%- matches[i].fixture %>
+        </div>
         <%- matches[i].qr %>
+        <%- matches[i].uuid %>
       </div>
-      <div class="col-xs-12">
-        <center>
-          <%- matches[i].uuid %>
-        </center>
-      </div>
-    </div>
-  <% } %>
+    <% } %>
+  </center>
 </div>
 <% include ./partials/footer %>
