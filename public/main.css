@@ -61,7 +61,7 @@
 
 .card{
   align-items: center;
-  background: #CCC;
+  background: #DDD;
   display: flex;
   justify-content: space-between;
   margin: 2.5px 5px;
@@ -106,7 +106,7 @@
 }
 
 .subCard{
-  background: #CCC;
+  background: #DDD;
   margin: 5px 5px;
   padding: 5px;
 }
