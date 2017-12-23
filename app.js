@@ -2,7 +2,12 @@ const express = require('express');
 
 const qr = require('qr-image');
 
-const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
+const {
+  loadDatabase,
+  searchDatabase,
+  addMarkdown,
+  addSimilarItems,
+} = require('./googleSpreadsheet');
 
 const app = express();
 
@@ -56,8 +61,8 @@ app.get('/recent', (req, res) => {
 
 app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
-    const matches = searchDatabase(req.params, allItems);
-    if (matches.length === 0) {
+    const match = searchDatabase(req.params, allItems)[0];
+    if (match.length === 0) {
       logScanned(req.params.uuid);
       res.status(404).render('notFound', {
         item: '',
@@ -65,11 +70,10 @@ app.get('/:uuid', (req, res) => {
       });
       return;
     }
-    logScanned(req.params.uuid, matches[0].fixture);
-    matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
-      .filter(item => item.uuid !== matches[0].uuid)
-      .splice(0, 3);
-    res.render('item', matches[0]);
+    addMarkdown(match);
+    addSimilarItems(match, allItems);
+    logScanned(req.params.uuid, match.fixture);
+    res.render('item', match);
   });
 });
 
