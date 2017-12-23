@@ -4,8 +4,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 7em;
-  margin-bottom: 1em;
-  margin-top: 1em;
+  margin: 1em 0;
+  padding: 0 5px;
   position: relative;
   width: 100%;
 }
@@ -20,24 +20,15 @@
 
 #appTitle {
   color: white;
-  font-size: 3em;
-  overflow: hidden;
-  height: 100%;
-  line-height: 1.6em;
-  text-align: center;
-  white-space: nowrap;
+  font-size: 1.5em;
+  line-height: 3.2em;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (min-width: 500px) {
   #appTitle {
-    color: white;
-    font-size: 1.5em;
-    line-height: 3.25em;
-    margin-left: 0;
-    overflow: hidden;
-    padding-left: 0;
-    text-align: left;
-    white-space: nowrap;
+    font-size: 3em;
+    line-height: 1.5em;
+    text-align: center;
   }
 
   #miniImg1{
@@ -141,8 +132,4 @@
   margin: 0;
   padding: 1em 0;
   width: 99%;
-}
-
-.qrImg{
-  /*width: 20%;*/
 }
