@@ -89,7 +89,7 @@ app.get('/', (req, res) => {
   res.render('home', {});
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
 
 app.listen(port, () => {
   console.log(`working on ${port}`);
