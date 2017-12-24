@@ -52,11 +52,10 @@
 }
 
 .breadcrumbs{
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 .card{
-  background: #DDD;
   margin: 5px;
   padding: 5px;
 }
