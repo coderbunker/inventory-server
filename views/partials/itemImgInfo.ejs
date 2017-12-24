@@ -1,17 +1,17 @@
 <% if (HOWTO) { %>
-  <article class="subCard">
+  <article class="card">
     <div class="infoTitle">How To</div>
     <%- HOWTO %>
   </article>
 <% } %>
 <% if (Troubleshooting) { %>
-  <article class="subCard">
+  <article class="card">
     <div class="infoTitle">Need Help</div>
     <%- Troubleshooting %>
   </article>
 <% } %>
 <% if ( similarItems.length > 0 ) { %>
-  <div class="subCard">
+  <div class="card">
     <div class="infoTitle">Similar Items</div>
     <div class='miniSearchItem'>
       <% for (var i = 0; i < similarItems.length; i++) { %>
@@ -32,7 +32,7 @@
     </div>
   </div>
 <% } %>
-<article class="subCard">
+<article class="card">
   <div class="infoTitle">Details</div>
   <%- details %>
   <ul>

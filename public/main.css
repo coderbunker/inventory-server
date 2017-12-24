@@ -56,16 +56,19 @@
 }
 
 .card{
-  align-items: center;
   background: #DDD;
+  margin: 5px;
+  padding: 5px;
+}
+
+.titleCard{
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  margin: 2.5px 5px;
 }
 
 .image {
   flex: 1;
-  margin: 5px;
 }
 
 .itemImg {
@@ -99,12 +102,6 @@
 
 .faded{
   opacity: 0.5;
-}
-
-.subCard{
-  background: #DDD;
-  margin: 5px 5px;
-  padding: 5px;
 }
 
 .infoTitle{
