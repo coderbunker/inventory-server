@@ -19,16 +19,17 @@ The content are stored on a google spreadsheet. You need permission to edit:
 https://docs.google.com/spreadsheets/d/1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY/edit
 
 # Deployment
+
+## Push to deploy
 The website is published on the domain name url.coderbunker.com
 
 The deployment is automatically triggered when something is pushed on the [deployment branch](https://github.com/coderbunker/inventory-server/tree/deployment).
-Please update the build_number file before every push on that branch. On server side there is a log file for every deployment whose name is the content of that file (with the ".log" extension)
 
 The deployment uses pm2 as suggested in [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04).
 
 pm2 uses [process.yml](https://github.com/coderbunker/inventory-server/blob/deployment/process.yml) configuration file.
-It makes the application listen to 8080 port.
-There is an nginx server forwarding the requests from port 80 to the application running on localhost:8080.
+
+The hosting itself works with an nginx service forwarding the requests to the local webapplication.
 
 Once you are listed in the [project owners](https://app.codeship.com/orgs/coderbunker/teams/owners) you can:
 * see deployments history: [Codeship dashboard](https://app.codeship.com/projects/261737)
@@ -38,7 +39,7 @@ Once you are listed in the [project owners](https://app.codeship.com/orgs/coderb
 ## If deployment changes ?
 The host needs to have read access on this reposit to download the deployment branch.
 
-One administrator of this github project has to add the ssh keys of the new host (the content of the file: ~/.ssh/id_rsa.pub) on the "[Deploy keys section](https://github.com/coderbunker/inventory-server/settings/keys)".
+Add the ssh keys of the new host (the content of the file: ~/.ssh/id_rsa.pub) on the "[Deploy keys section](https://github.com/coderbunker/inventory-server/settings/keys)".
 
 Before the first deployment, the reposit has to be downloaded and the deployment branch must be checkout.
 
@@ -46,7 +47,7 @@ Before the first deployment, the reposit has to be downloaded and the deployment
     cd inventory-server
     git checkout deployment
 
-If you choose to use pm2 to monitor application, it has to be installed separately.
+If you choose to use pm2 + nginx to monitor application, they have to be installed separately (their installation is not triggered by 'npm install').
 
 ## Troobleshooting.
 If the deployment fails, check that any application on the host is running a service on port 80.
