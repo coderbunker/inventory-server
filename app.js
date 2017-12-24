@@ -81,7 +81,7 @@ app.get('/', (req, res) => {
   res.render('home', {});
 });
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 1234;
 
 app.listen(port, () => {
   console.log(`working on ${port}`);
