@@ -24,9 +24,30 @@ The website is published on the domain name url.coderbunker.com
 The deployment is automatically triggered when something is pushed on the [deployment branch](https://github.com/coderbunker/inventory-server/tree/deployment).
 Please update the build_number file before every push on that branch. On server side there is a log file for every deployment whose name is the content of that file (with the ".log" extension)
 
+This branch contains a script [run_forever.sh](https://github.com/coderbunker/inventory-server/blob/deployment/run_forever.sh) that we run on server side.
+The deployment branch also differs with the default listening port (80 instead of 1234).
+
 Once you are listed in the [project owners](https://app.codeship.com/orgs/coderbunker/teams/owners) you can:
 * see deployments history: [Codeship dashboard](https://app.codeship.com/projects/261737)
 * manage deployment scripts [Codeship administration page](https://app.codeship.com/projects/261737/deployment_branches/187689)
+
+
+## If deployment changes ?
+The host needs to have read access on this reposit to download the deployment branch.
+
+One administrator of this github project has to add the ssh keys of the new host (the content of the file: ~/.ssh/id_rsa.pub) on the [Deploy keys section](https://github.com/coderbunker/inventory-server/settings/keys).
+
+Before the first deployment, the reposit has to be downloaded and the deployment branch must be checkouted.
+    git clone git@github.com:coderbunker/inventory-server.git
+    cd inventory-server
+    git checkout deployment
+
+
+## Troobleshooting.
+If the deployment fails, check that any application on the host is running a service on port 80.
+It is possible that the previous time that "invetory-server" had been lauched did not termniate properly and it is still holding the port.
+
+In linux distributions only the root user can run a service listening to 80 port. Ensure you have the right permissions.
 
 
 Try also
