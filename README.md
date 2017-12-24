@@ -14,6 +14,9 @@ Go there for instructions to install npm and nodejs using package manager [there
 At this point you can go to home page by typing this on your webbrowser: 
 http://127.0.0.1:1234/
 
+Try also
+http://127.0.0.1:1234/search
+
 # Other information:
 The content are stored on a google spreadsheet. You need permission to edit: 
 https://docs.google.com/spreadsheets/d/1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY/edit
@@ -51,14 +54,11 @@ If you choose to use pm2 + nginx to monitor application, they have to be install
 
 ## Troobleshooting.
 If the deployment fails, check that any application on the host is running a service on port 80.
-It is possible that the previous time that "invetory-server" had been lauched did not termniate properly and it is still holding the port.
-
-In linux distributions only the root user can run a service listening to 80 port. Ensure you have the right permissions.
+It is possible that the previous time that "inventory-server" had been lauched did not termniate properly and it is still holding the port.
 
 
-Try also
-http://127.0.0.1:1234/search
 # Contribution
+
 ## Use pull request
 Avoid pushing straight to the master branch any code that needs review.
 Please follow the following steps.
@@ -85,38 +85,3 @@ Please follow the following steps.
     git branch -d my_branch #if you don't need that branch anymore you can delete it
 ## other information
 the project is structured around [expressjs](https://github.com/expressjs/express)
-# Deploy
-To deploy inventory-server you need an account a [heroku account](https://signup.heroku.com/dc?_ga=2.174119140.795848951.1511268290-1509905748.1509873833)
-#### - [Install heroku](https://devcenter.heroku.com/articles/getting-started-with-python?c=70130000000NhRJAA0&utm_campaign=Onboarding-Nurture-Email-1&utm_medium=email&utm_source=nurture&utm_content=devcenter&utm_term=start-python#set-up)
-#### - Once your installation succeded you can login into your account using heroku's command line: 
-    heroku login
-## Prepare your workspace
-### Prepare it from scratch
-#### - Clone this repository then go to the project folder
-    git clone https://github.com/coderbunker/inventory-server.git
-    cd inventory-server
-#### - In order to quickly create a new deployment of this repository, create your copy repository hosted in their server: https://git.heroku.com. 
-You can create one with one command:
-Skip this step if you want to manage our deployment.
-    heroku create #will add a remote repository called 'heroku'(ensure you don't have an existing remote with that name)
-### Deploy the code you contributed on
-#### - Clone this repository then go to the project folder
-    git clone https://github.com/coderbunker/inventory-server.git
-    cd inventory-server
-#### - In order to administrate our release you can run the following commands (requires access rights). 
-    git remote add heroku  https://git.heroku.com/enigmatic-brushlands-32514.git
-
-### Create a separate repository that tracks the deployment 
-#### - Or, if you want to work in a dedicated repository you can do this that way
-    heroku git:clone -a enigmatic-brushlands-32514
-    cd enigmatic-brushlands-32514
-
-## Release your work
-#### - Push the version of the repository you want to deploy on the 'heroku' remote, for instance if you want to deploy your master branch type:
-    git push heroku master
-    #No matter the local branch you are pushing, it is recommended to push on heroku remote's master branch 
-    git push heroku my_branch:master #only if you are using a different branch
-#### - Finally just deploy the app you just pushed using this command.
-    heroku ps:scale web=1
-
-Et voilà
