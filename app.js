@@ -2,7 +2,12 @@ const express = require('express');
 
 const qr = require('qr-image');
 
-const { loadDatabase, searchDatabase } = require('./googleSpreadsheet');
+const {
+  loadDatabase,
+  searchDatabase,
+  addMarkdown,
+  addSimilarItems,
+} = require('./googleSpreadsheet');
 
 const app = express();
 
@@ -75,16 +80,15 @@ app.get('/:uuid', (req, res) => {
     if (matches.length > 1) {
       console.log(`Too much matches for uuid ${req.params.uuid} length = ${matches.length}`);
     }
+    addMarkdown(matches);
+    addSimilarItems(matches, allItems);
     addRecentlyScanned(req.params.uuid, matches[0], matches.length);
-    matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
-      .filter(item => item.uuid !== matches[0].uuid)
-      .splice(0, 3);
-    res.render('item', matches[0]);
+    res.render('item', matches);
   });
 });
 
 app.get('/', (req, res) => {
-  res.redirect('https://cryptic-woodland-88390.herokuapp.com/');
+  res.render('home', {});
 });
 
 const port = process.env.PORT || 1234;
