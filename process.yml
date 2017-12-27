@@ -1,6 +1,6 @@
 apps:
   - script   : app.js
-    instances: 4
+    instances: 1
     exec_mode: cluster
     name:   inventory-server
     env: 
