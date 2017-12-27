@@ -48,7 +48,7 @@ function searchDatabase(query, callback) {
 
 function addSimilarItems(items) {
   const obj = items;
-  obj.similarItems = searchDatabase({ fixture: obj.fixture }, loadedItems)
+  obj.similarItems = loadedItems.filter(item => item.fixture === obj.fixture)
     .filter(item => item.uuid !== obj.uuid)
     .splice(0, 3);
   return obj;

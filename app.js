@@ -63,9 +63,9 @@ app.get('/recent', (req, res) => {
 });
 
 app.get('/:uuid', (req, res) => {
-  function renderUuid(uuids) {
-    let matches = uuids;
-    if (matches.length === 0) {
+  function renderUuid(uuidsList) {
+    let uuids = uuidsList[0];
+    if (uuidsList.length === 0) {
       addRecentlyScanned(req.params.uuid, {});
       res.status(404).render('notFound', {
         item: '',
@@ -73,14 +73,15 @@ app.get('/:uuid', (req, res) => {
       });
       return;
     }
-    if (matches.length > 1) {
-      console.log(`Too much matches for uuid ${req.params.uuid} length = ${matches.length}`);
+    console.log(uuidsList.length);
+    if (uuidsList.length > 1) {
+      console.log(`Too much matches for uuid ${req.params.uuid} length = ${uuidsList.length}`);
     }
     // copying twice just to remove a lint warning (no-param-reassign):  bad bad bad !
-    matches = addMarkdown(matches);
-    matches = addSimilarItems(matches);
-    addRecentlyScanned(req.params.uuid, matches[0], matches.length);
-    res.render('item', matches);
+    uuids = addMarkdown(uuids);
+    uuids = addSimilarItems(uuids);
+    addRecentlyScanned(req.params.uuid, uuids, uuidsList.length);
+    res.render('item', uuids);
   }
   searchDatabase(req.params, queryResult => renderUuid(queryResult));
 });
