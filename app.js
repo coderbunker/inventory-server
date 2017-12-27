@@ -29,6 +29,7 @@ function addRecentlyScanned(uuid, item, nbFound = 0) {
   const duplicatedItem = item;
   duplicatedItem.time = new Date();
   duplicatedItem.duplicated = nbFound > 1;
+  duplicatedItem.link = item.cellRef;
   if (nbFound === 0) {
     duplicatedItem.fixture = '';
     duplicatedItem.uuid = uuid;
@@ -73,7 +74,6 @@ app.get('/:uuid', (req, res) => {
       });
       return;
     }
-    console.log(uuidsList.length);
     if (uuidsList.length > 1) {
       console.log(`Too much matches for uuid ${req.params.uuid} length = ${uuidsList.length}`);
     }

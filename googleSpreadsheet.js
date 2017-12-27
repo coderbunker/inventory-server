@@ -2,16 +2,18 @@ const google = require('googleapis');
 const keys = require('./config/keys');
 const marked = require('marked');
 
-
+const spreadsheetDataId = '1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY';
+const spreadsheetLink = `https://docs.google.com/spreadsheets/d/${spreadsheetDataId}/edit`;
 let loadedItems = [];
 
 // creates a dictionary mapping column names with the values
 // ex: { floor : 402, business : coworking, etc..}
-function spreadsheetValuesToObject(values, columns) {
+function spreadsheetValuesToObject(values, columns, index) {
   const formatedRow = {};
   for (let i = 0; i < columns.length; i += 1) {
     formatedRow[columns[i]] = values[i];
   }
+  formatedRow.cellRef = `${spreadsheetLink}#gid=0&range=A${index}:T${index}`;
   return formatedRow;
 }
 
@@ -19,7 +21,7 @@ function loadDatabase(callback) {
   const sheets = google.sheets('v4');
   sheets.spreadsheets.values.get({
     auth: keys.apiKey,
-    spreadsheetId: '1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY',
+    spreadsheetId: spreadsheetDataId,
     range: 'Agora inventory!A:Z',
   }, (err, response) => {
     if (err) {
@@ -27,7 +29,11 @@ function loadDatabase(callback) {
       return;
     }
     const columns = response.values[0];
-    loadedItems = response.values.map(row => spreadsheetValuesToObject(row, columns));
+    let i = 0;
+    loadedItems = response.values.map((row) => {
+      i += 1;
+      return spreadsheetValuesToObject(row, columns, i);
+    });
     return callback();
   });
 }
