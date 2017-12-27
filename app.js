@@ -3,7 +3,6 @@ const express = require('express');
 const qr = require('qr-image');
 
 const {
-  loadDatabase,
   searchDatabase,
   addMarkdown,
   addSimilarItems,
@@ -11,21 +10,7 @@ const {
 
 const app = express();
 
-const allScans = [];
-
-function logScanned(uuid, fixture) {
-  // TRICK: fixture tells if the the uuid was found in database or not
-  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
-    return;
-  }
-  const now = new Date();
-  if (!fixture) {
-    allScans.unshift({ time: now, status: 'missing', uuid });
-    return;
-  }
-  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-  allScans.unshift({ time: now, fixture, uuid });
-}
+const allScans = new Map();
 
 app.set('view engine', 'ejs');
 
@@ -35,24 +20,43 @@ app.get(['/favicon.ico', '/robots.txt'], (req, res) => {
   res.sendStatus(204);
 });
 
+
+function addRecentlyScanned(uuid, item, nbFound = 0) {
+  // TRICK: only record uuids
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
+    return;
+  }
+  const duplicatedItem = item;
+  duplicatedItem.time = new Date();
+  duplicatedItem.duplicated = nbFound > 1;
+  duplicatedItem.link = item.cellRef;
+  if (nbFound === 0) {
+    duplicatedItem.fixture = '';
+    duplicatedItem.uuid = uuid;
+    duplicatedItem.status = 'missing';
+  }
+  allScans.set(uuid, duplicatedItem);
+}
+
 app.get('/search', (req, res) => {
-  loadDatabase((allItems) => {
-    res.render('search', {
-      matches: searchDatabase(req.query, allItems)
-        .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
-    });
-  });
+  searchDatabase(req.query, queryResult => res.render('search', {
+    matches: queryResult.sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
+  }));
 });
 
 app.get('/qrlist', (req, res) => {
-  loadDatabase((allItems) => {
-    const qrList = searchDatabase(req.query, allItems)
-      .filter(item => item.uuid !== '')
+  function renderQrList(qrList) {
+    const qrItems = qrList.filter(item => item.uuid !== '')
       .filter(item => item.uuid !== undefined)
       .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
-    qrList.forEach(item => item.qr = qr.imageSync('http://url.coderbunker.com/' + item.uuid, { type: 'svg' }));
-    res.render('qrList', { matches: qrList });
-  });
+    qrItems.forEach((item) => {
+      const itemWithQr = item;
+      itemWithQr.qr = qr.imageSync(item.uuid, { type: 'svg' });
+      return itemWithQr;
+    });
+    res.render('qrList', { matches: qrItems });
+  }
+  searchDatabase(req.query, queryResult => renderQrList(queryResult));
 });
 
 app.get('/recent', (req, res) => {
@@ -60,21 +64,26 @@ app.get('/recent', (req, res) => {
 });
 
 app.get('/:uuid', (req, res) => {
-  loadDatabase((allItems) => {
-    const match = searchDatabase(req.params, allItems)[0];
-    if (match.length === 0) {
-      logScanned(req.params.uuid);
+  function renderUuid(uuidsList) {
+    let uuids = uuidsList[0];
+    if (uuidsList.length === 0) {
+      addRecentlyScanned(req.params.uuid, {});
       res.status(404).render('notFound', {
         item: '',
         id: req.params.uuid,
       });
       return;
     }
-    addMarkdown(match);
-    addSimilarItems(match, allItems);
-    logScanned(req.params.uuid, match.fixture);
-    res.render('item', match);
-  });
+    if (uuidsList.length > 1) {
+      console.log(`Too much matches for uuid ${req.params.uuid} length = ${uuidsList.length}`);
+    }
+    // copying twice just to remove a lint warning (no-param-reassign):  bad bad bad !
+    uuids = addMarkdown(uuids);
+    uuids = addSimilarItems(uuids);
+    addRecentlyScanned(req.params.uuid, uuids, uuidsList.length);
+    res.render('item', uuids);
+  }
+  searchDatabase(req.params, queryResult => renderUuid(queryResult));
 });
 
 app.get('/', (req, res) => {
