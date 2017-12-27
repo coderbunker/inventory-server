@@ -2,6 +2,9 @@ const google = require('googleapis');
 const keys = require('./config/keys');
 const marked = require('marked');
 
+
+let loadedItems = [];
+
 // creates a dictionary mapping column names with the values
 // ex: { floor : 402, business : coworking, etc..}
 function spreadsheetValuesToObject(values, columns) {
@@ -24,28 +27,35 @@ function loadDatabase(callback) {
       return;
     }
     const columns = response.values[0];
-    // map function transforms a list into another list using the given lambda function
-    const formatedRows = response.values.map(row => spreadsheetValuesToObject(row, columns));
-    return callback(formatedRows);
+    loadedItems = response.values.map(row => spreadsheetValuesToObject(row, columns));
+    return callback();
   });
 }
 
-function searchDatabase(query, rows) {
-  let matches = rows;
+function searchDatabase(query, callback) {
+  if (loadedItems.length === 0) {
+    // if the database was not loaded load it then recall this function with the same parameters
+    // warning, this causes an infinite loop if the spreadsheet is empty or unreachable
+    loadDatabase(() => searchDatabase(query, callback));
+    return;
+  }
+  let queryResult = loadedItems;
   Object.keys(query).map((key) => {
-    matches = matches.filter(item => item[key] === query[key]);
+    queryResult = loadedItems.filter(item => item[key] === query[key]);
   });
-  return matches;
+  return callback(queryResult);
 }
 
-function addSimilarItems(obj, allObj) {
-  obj.similarItems = searchDatabase({ fixture: obj.fixture }, allObj)
+function addSimilarItems(items) {
+  const obj = items;
+  obj.similarItems = searchDatabase({ fixture: obj.fixture }, loadedItems)
     .filter(item => item.uuid !== obj.uuid)
     .splice(0, 3);
   return obj;
 }
 
-function addMarkdown(obj) {
+function addMarkdown(items) {
+  const obj = items;
   obj.HOWTO = marked(obj.HOWTO);
   obj.details = marked(obj.details);
   obj.Troubleshooting = marked(obj.Troubleshooting);
@@ -53,7 +63,6 @@ function addMarkdown(obj) {
 }
 
 module.exports = {
-  loadDatabase,
   searchDatabase,
   addMarkdown,
   addSimilarItems,
