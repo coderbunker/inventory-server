@@ -78,9 +78,6 @@ app.get('/:uuid', (req, res) => {
       console.log(`Too much matches for uuid ${req.params.uuid} length = ${matches.length}`);
     }
     addRecentlyScanned(req.params.uuid, matches[0], matches.length);
-    matches[0].similarItems = searchDatabase({ fixture: matches[0].fixture }, allItems)
-      .filter(item => item.uuid !== matches[0].uuid)
-      .splice(0, 3);
     addMarkdown(matches[0]);
     addSimilarItems(matches[0], allItems);
     res.render('item', matches[0]);
