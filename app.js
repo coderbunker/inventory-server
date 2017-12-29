@@ -22,7 +22,7 @@ function addRecentlyScanned(uuid, item, nbFound = 0) {
 
   duplicatedItem.time = new Date();
   duplicatedItem.duplicated = nbFound > 1;
-
+  duplicatedItem.link = item.cellRef;
   if (nbFound === 0) {
     duplicatedItem.fixture = '';
     duplicatedItem.uuid = uuid;
