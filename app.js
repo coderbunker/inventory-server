@@ -1,6 +1,5 @@
 const express = require('express');
 
-const qr = require('qr-image');
 
 const {
   loadDatabase,
@@ -57,7 +56,7 @@ app.get('/qrlist', (req, res) => {
       .filter(item => item.uuid !== '')
       .filter(item => item.uuid !== undefined)
       .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
-    qrList.forEach(item => item.qr = qr.imageSync(item.uuid, { type: 'svg' }));
+    qrList.forEach(item => item.addQrImg());
     res.render('qrList', { matches: qrList });
   });
 });

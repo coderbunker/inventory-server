@@ -1,6 +1,7 @@
 const google = require('googleapis');
 const keys = require('./config/keys');
 const marked = require('marked');
+const qr = require('qr-image');
 
 // creates a dictionary mapping column names with the values
 // ex: { floor : 402, business : coworking, etc..}
@@ -9,6 +10,9 @@ function spreadsheetValuesToObject(values, columns) {
   for (let i = 0; i < columns.length; i += 1) {
     formatedRow[columns[i]] = values[i];
   }
+  formatedRow.addQrImg = function addQrImg() {
+    this.qr = qr.imageSync(this.uuid, { type: 'svg' });
+  };
   return formatedRow;
 }
 
@@ -38,14 +42,16 @@ function searchDatabase(query, rows) {
   return matches;
 }
 
-function addSimilarItems(obj, allObj) {
+function addSimilarItems(refItem, allObj) {
+  const obj = refItem;
   obj.similarItems = searchDatabase({ fixture: obj.fixture }, allObj)
     .filter(item => item.uuid !== obj.uuid)
     .splice(0, 3);
   return obj;
 }
 
-function addMarkdown(obj) {
+function addMarkdown(refItem) {
+  const obj = refItem;
   obj.HOWTO = marked(obj.HOWTO);
   obj.details = marked(obj.details);
   obj.Troubleshooting = marked(obj.Troubleshooting);
