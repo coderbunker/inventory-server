@@ -42,7 +42,6 @@ app.get(['/favicon.ico', '/robots.txt'], (req, res) => {
 
 app.get('/search', (req, res) => {
   loadDatabase((allItems) => {
-    console.log(allItems);
     res.render('search', {
       matches: searchDatabase(req.query, allItems).sortByFloor(),
     });
@@ -51,9 +50,9 @@ app.get('/search', (req, res) => {
 
 app.get('/qrlist', (req, res) => {
   loadDatabase((allItems) => {
-    const qrList = searchDatabase(req.query, allItems);
-    qrList.filterEmptyUuid();
-    qrList.sortByFloor();
+    let qrList = searchDatabase(req.query, allItems);
+    qrList = qrList.sortByFloor();
+    qrList = qrList.filterEmptyUuid();
     qrList.forEach(item => item.addQrImg());
     res.render('qrList', { matches: qrList });
   });
