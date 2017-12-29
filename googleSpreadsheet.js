@@ -39,6 +39,12 @@ function searchDatabase(query, rows) {
   Object.keys(query).map((key) => {
     matches = matches.filter(item => item[key] === query[key]);
   });
+  matches.filterEmptyUuid = function filterEmptyUuid() {
+    return this.filter(item => item.uuid !== '').filter(item => item.uuid !== undefined);
+  };
+  matches.sortByFloor = function sortByFloor() {
+    return this.sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
+  };
   return matches;
 }
 

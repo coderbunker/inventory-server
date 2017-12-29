@@ -44,18 +44,16 @@ app.get('/search', (req, res) => {
   loadDatabase((allItems) => {
     console.log(allItems);
     res.render('search', {
-      matches: searchDatabase(req.query, allItems).sort((a, b) =>
-        (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
+      matches: searchDatabase(req.query, allItems).sortByFloor(),
     });
   });
 });
 
 app.get('/qrlist', (req, res) => {
   loadDatabase((allItems) => {
-    const qrList = searchDatabase(req.query, allItems)
-      .filter(item => item.uuid !== '')
-      .filter(item => item.uuid !== undefined)
-      .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
+    const qrList = searchDatabase(req.query, allItems);
+    qrList.filterEmptyUuid();
+    qrList.sortByFloor();
     qrList.forEach(item => item.addQrImg());
     res.render('qrList', { matches: qrList });
   });
