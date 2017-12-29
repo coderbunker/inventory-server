@@ -1,6 +1,5 @@
 const express = require('express');
 
-const qr = require('qr-image');
 
 const {
   loadDatabase,
@@ -11,20 +10,26 @@ const {
 
 const app = express();
 
-const allScans = [];
+const allScans = new Map();
 
-function logScanned(uuid, fixture) {
-  // TRICK: fixture tells if the the uuid was found in database or not
+function addRecentlyScanned(uuid, item, nbFound = 0) {
+  // TRICK: only record uuids
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
     return;
   }
-  const now = new Date();
-  if (!fixture) {
-    allScans.unshift({ time: now, status: 'missing', uuid });
-    return;
+
+  const duplicatedItem = item;
+
+  duplicatedItem.time = new Date();
+  duplicatedItem.duplicated = nbFound > 1;
+  duplicatedItem.link = item.cellRef;
+  if (nbFound === 0) {
+    duplicatedItem.fixture = '';
+    duplicatedItem.uuid = uuid;
+    duplicatedItem.status = 'missing';
   }
-  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
-  allScans.unshift({ time: now, fixture, uuid });
+
+  allScans.set(uuid, duplicatedItem);
 }
 
 app.set('view engine', 'ejs');
@@ -38,19 +43,17 @@ app.get(['/favicon.ico', '/robots.txt'], (req, res) => {
 app.get('/search', (req, res) => {
   loadDatabase((allItems) => {
     res.render('search', {
-      matches: searchDatabase(req.query, allItems)
-        .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1)),
+      matches: searchDatabase(req.query, allItems).sortByFloor(),
     });
   });
 });
 
 app.get('/qrlist', (req, res) => {
   loadDatabase((allItems) => {
-    const qrList = searchDatabase(req.query, allItems)
-      .filter(item => item.uuid !== '')
-      .filter(item => item.uuid !== undefined)
-      .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
-    qrList.forEach(item => item.qr = qr.imageSync('http://url.coderbunker.com/' + item.uuid, { type: 'svg' }));
+    let qrList = searchDatabase(req.query, allItems);
+    qrList = qrList.sortByFloor();
+    qrList = qrList.filterEmptyUuid();
+    qrList.forEach(item => item.addQrImg());
     res.render('qrList', { matches: qrList });
   });
 });
@@ -61,19 +64,22 @@ app.get('/recent', (req, res) => {
 
 app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
-    const match = searchDatabase(req.params, allItems)[0];
-    if (match.length === 0) {
-      logScanned(req.params.uuid);
+    const matches = searchDatabase(req.params, allItems);
+    if (matches.length === 0) {
+      addRecentlyScanned(req.params.uuid, {});
       res.status(404).render('notFound', {
         item: '',
         id: req.params.uuid,
       });
       return;
     }
-    addMarkdown(match);
-    addSimilarItems(match, allItems);
-    logScanned(req.params.uuid, match.fixture);
-    res.render('item', match);
+    if (matches.length > 1) {
+      console.log(`Too much matches for uuid ${req.params.uuid} length = ${matches.length}`);
+    }
+    addRecentlyScanned(req.params.uuid, matches[0], matches.length);
+    addMarkdown(matches[0]);
+    addSimilarItems(matches[0], allItems);
+    res.render('item', matches[0]);
   });
 });
 
