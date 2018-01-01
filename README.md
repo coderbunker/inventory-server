@@ -17,6 +17,10 @@ http://127.0.0.1:1234/
 Try also
 http://127.0.0.1:1234/search
 
+## Troobleshooting.
+If the application is not starting, check that if there is any application already using port 1234.
+It is also possible that the previous time that "inventory-server" had been lauched did not termniate properly and it is still holding the port.
+
 # Other information:
 The content are stored on a google spreadsheet. You need permission to edit: 
 https://docs.google.com/spreadsheets/d/1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL42dY/edit
@@ -27,34 +31,6 @@ https://docs.google.com/spreadsheets/d/1QHKa3vUpht7zRl_LEzl3BlUbolz3ZiL8yKHzdBL4
 The website is published on the domain name url.coderbunker.com
 
 The deployment is automatically triggered when something is pushed on the [deployment branch](https://github.com/coderbunker/inventory-server/tree/deployment).
-
-The deployment uses pm2 as suggested in [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04).
-
-pm2 uses [process.yml](https://github.com/coderbunker/inventory-server/blob/deployment/process.yml) configuration file.
-
-The hosting itself works with an nginx service forwarding the requests to the local webapplication.
-
-Once you are listed in the [project owners](https://app.codeship.com/orgs/coderbunker/teams/owners) you can:
-* see deployments history: [Codeship dashboard](https://app.codeship.com/projects/261737)
-* manage deployment scripts [Codeship administration page](https://app.codeship.com/projects/261737/deployment_branches/187689)
-
-
-## If deployment changes ?
-The host needs to have read access on this reposit to download the deployment branch.
-
-Add the ssh keys of the new host (the content of the file: ~/.ssh/id_rsa.pub) on the "[Deploy keys section](https://github.com/coderbunker/inventory-server/settings/keys)".
-
-Before the first deployment, the reposit has to be downloaded and the deployment branch must be checkout.
-
-    git clone git@github.com:coderbunker/inventory-server.git
-    cd inventory-server
-    git checkout deployment
-
-If you choose to use pm2 + nginx to monitor application, they have to be installed separately (their installation is not triggered by 'npm install').
-
-## Troobleshooting.
-If the deployment fails, check that any application on the host is running a service on port 80.
-It is possible that the previous time that "inventory-server" had been lauched did not termniate properly and it is still holding the port.
 
 
 # Contribution
