@@ -62,7 +62,7 @@ app.get('/recent', (req, res) => {
 app.get('/:uuid', (req, res) => {
   loadDatabase((allItems) => {
     const match = searchDatabase(req.params, allItems)[0];
-    if (match.length === 0) {
+    if (match === undefined) {
       logScanned(req.params.uuid);
       res.status(404).render('notFound', {
         item: '',
