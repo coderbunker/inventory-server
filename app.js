@@ -47,16 +47,6 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(`${__dirname}/public`));
 
-const port = process.env.PORT || 1234;
-const httpsport = process.env.HTTPSPORT || 1235;
-app.use((req, res, next) => {
-  if (!/https/.test(req.protocol)) {
-    res.redirect(`https://${req.headers.host.replace(/[0-9]/g, '')}${httpsport}${req.url}`);
-  } else {
-    return next();
-  }
-});
-
 app.get(['/favicon.ico', '/robots.txt'], (req, res) => {
   res.sendStatus(204);
 });
@@ -116,8 +106,6 @@ app.get('/', (req, res) => {
   res.render('home', {});
 });
 
-app.listen(port, () => {
-  console.log(`working on ${port}`);
-});
+const port = process.env.PORT || 1234;
 
-https.createServer(options, app).listen(httpsport);
+https.createServer(options, app).listen(port);
