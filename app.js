@@ -15,14 +15,14 @@ const app = express();
 
 const allScans = [];
 
-const key = fs.readFileSync('encryption/coderbunker-private.key');
-const cert = fs.readFileSync('encryption/coderbunker.crt');
-const sslforfree = fs.readFileSync('encryption/sslforfree-verification.bin');
+const key = fs.readFileSync('encryption/private.key');
+const cert = fs.readFileSync('encryption/certificate.crt');
+const ca = fs.readFileSync('encryption/ca_bundle.crt');
 
 const options = {
   key,
   cert,
-  ca: cert,
+  ca,
 };
 
 function logScanned(uuid, fixture) {
@@ -77,11 +77,6 @@ app.get('/qrlist', (req, res) => {
 
 app.get('/recent', (req, res) => {
   res.render('recent', { allScans });
-});
-
-
-app.get('/.well-known/acme-challenge/CheXxDaQaY-i4enIAZfdod448M14tGKDjHf4WLsjEd4', (req, res) => {
-  res.send(sslforfree);
 });
 
 app.get('/:uuid', (req, res) => {
