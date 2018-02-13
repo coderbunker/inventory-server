@@ -17,7 +17,7 @@ const allScans = [];
 
 const key = fs.readFileSync('encryption/coderbunker-private.key');
 const cert = fs.readFileSync('encryption/coderbunker.crt');
-
+const sslforfree = fs.readFileSync('encryption/sslforfree-verification.bin');
 
 const options = {
   key,
@@ -87,6 +87,11 @@ app.get('/qrlist', (req, res) => {
 
 app.get('/recent', (req, res) => {
   res.render('recent', { allScans });
+});
+
+
+app.get('/.well-known/acme-challenge/tKNA6OSB1Ug5zig7rEbF0FlFwilsZaNC-8-5iJeZGXo', (req, res) => {
+  res.send(sslforfree);
 });
 
 app.get('/:uuid', (req, res) => {
