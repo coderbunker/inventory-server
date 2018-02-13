@@ -1,0 +1,7 @@
+apps:
+  - script   : app.js
+    instances: 1
+    exec_mode: cluster
+    name:   inventory-server
+    env: 
+        PORT: 8080
