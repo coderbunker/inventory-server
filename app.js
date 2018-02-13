@@ -80,7 +80,7 @@ app.get('/recent', (req, res) => {
 });
 
 
-app.get('/.well-known/acme-challenge/tKNA6OSB1Ug5zig7rEbF0FlFwilsZaNC-8-5iJeZGXo', (req, res) => {
+app.get('/.well-known/acme-challenge/CheXxDaQaY-i4enIAZfdod448M14tGKDjHf4WLsjEd4', (req, res) => {
   res.send(sslforfree);
 });
 
