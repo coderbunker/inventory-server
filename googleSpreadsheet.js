@@ -34,14 +34,16 @@ function searchDatabase(query, rows) {
   return matches;
 }
 
-function addSimilarItems(obj, allObj) {
+function addSimilarItems(object, allObj) {
+  const obj = object;
   obj.similarItems = searchDatabase({ fixture: obj.fixture }, allObj)
     .filter(item => item.uuid !== obj.uuid)
     .splice(0, 3);
   return obj;
 }
 
-function addMarkdown(obj) {
+function addMarkdown(object) {
+  const obj = object;
   obj.HOWTO = marked(obj.HOWTO);
   obj.details = marked(obj.details);
   obj.Troubleshooting = marked(obj.Troubleshooting);
