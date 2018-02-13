@@ -1,4 +1,6 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
 
 const qr = require('qr-image');
 
@@ -12,6 +14,16 @@ const {
 const app = express();
 
 const allScans = [];
+
+const key = fs.readFileSync('encryption/coderbunker-private.key');
+const cert = fs.readFileSync('encryption/coderbunker.crt');
+
+
+const options = {
+  key,
+  cert,
+  ca: cert,
+};
 
 function logScanned(uuid, fixture) {
   // TRICK: fixture tells if the the uuid was found in database or not
@@ -34,6 +46,16 @@ function logScanned(uuid, fixture) {
 app.set('view engine', 'ejs');
 
 app.use(express.static(`${__dirname}/public`));
+
+const port = process.env.PORT || 1234;
+const httpsport = process.env.HTTPSPORT || 1235;
+app.use((req, res, next) => {
+  if (!/https/.test(req.protocol)) {
+    res.redirect(`https://${req.headers.host.replace(/[0-9]/g, '')}${httpsport}${req.url}`);
+  } else {
+    return next();
+  }
+});
 
 app.get(['/favicon.ico', '/robots.txt'], (req, res) => {
   res.sendStatus(204);
@@ -89,8 +111,8 @@ app.get('/', (req, res) => {
   res.render('home', {});
 });
 
-const port = process.env.PORT || 1234;
-
 app.listen(port, () => {
   console.log(`working on ${port}`);
 });
+
+https.createServer(options, app).listen(httpsport);
