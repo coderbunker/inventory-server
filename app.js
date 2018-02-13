@@ -23,7 +23,11 @@ function logScanned(uuid, fixture) {
     allScans.unshift({ time: now, status: 'missing', uuid });
     return;
   }
-  allScans.map(item => item.status = (item.uuid === uuid) ? 'fixed' : item.status);
+  allScans.map((item) => {
+    const itm = item;
+    itm.status = (itm.uuid === uuid) ? 'fixed' : itm.status;
+    return itm;
+  });
   allScans.unshift({ time: now, fixture, uuid });
 }
 
@@ -50,7 +54,11 @@ app.get('/qrlist', (req, res) => {
       .filter(item => item.uuid !== '')
       .filter(item => item.uuid !== undefined)
       .sort((a, b) => (a.floor === b.floor ? 0 : +(a.floor > b.floor) || -1));
-    qrList.forEach(item => item.qr = qr.imageSync('http://url.coderbunker.com/' + item.uuid, { type: 'svg' }));
+    qrList.forEach((item) => {
+      const itm = item;
+      itm.qr = qr.imageSync(`http://url.coderbunker.com/${itm.uuid}`, { type: 'svg' });
+      return itm;
+    });
     res.render('qrList', { matches: qrList });
   });
 });
