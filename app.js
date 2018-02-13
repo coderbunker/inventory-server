@@ -1,4 +1,6 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
 
 const qr = require('qr-image');
 
@@ -12,6 +14,16 @@ const {
 const app = express();
 
 const allScans = [];
+
+const key = fs.readFileSync('encryption/private.key');
+const cert = fs.readFileSync('encryption/certificate.crt');
+const ca = fs.readFileSync('encryption/ca_bundle.crt');
+
+const options = {
+  key,
+  cert,
+  ca,
+};
 
 function logScanned(uuid, fixture) {
   // TRICK: fixture tells if the the uuid was found in database or not
@@ -91,6 +103,4 @@ app.get('/', (req, res) => {
 
 const port = process.env.PORT || 1234;
 
-app.listen(port, () => {
-  console.log(`working on ${port}`);
-});
+https.createServer(options, app).listen(port);
