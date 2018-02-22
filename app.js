@@ -102,5 +102,12 @@ app.get('/', (req, res) => {
 });
 
 const port = process.env.PORT || 1234;
+const httpport = process.env.HTTPPORT || 1235;
+
 
 https.createServer(options, app).listen(port);
+
+app.listen(httpport, () => {
+  console.log(`working on ${httpport}`);
+});
+

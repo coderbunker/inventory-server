@@ -5,3 +5,4 @@ apps:
     name:   inventory-server
     env: 
         PORT: 8080
+        HTTPPORT: 8081
