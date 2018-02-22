@@ -12,10 +12,10 @@ Go there for instructions to install npm and nodejs using package manager [there
     npm start 
 
 At this point you can go to home page by typing this on your webbrowser: 
-http://127.0.0.1:1234/
+https://127.0.0.1:1234/
 
 Try also
-http://127.0.0.1:1234/search
+https://127.0.0.1:1234/search
 
 ## Troobleshooting.
 If the application is not starting, check that if there is any application already using port 1234.
