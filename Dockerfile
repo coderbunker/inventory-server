@@ -6,6 +6,6 @@ RUN npm install --production
 
 COPY . .
 
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./script/entrypoint.sh
 
-CMD ["./entrypoint.sh"]
+CMD ["./script/entrypoint.sh"]
