@@ -33,6 +33,14 @@
   </article>
 <%}%>
 <article class="well col-xs-12">
+  <h2>Problems?</h2>
+  <p>Not working? Something missing? Is it about to explode? <b>Submit a ticket</b> and we'll get to fixing it ASAP.</p>
+  <form action="https://toy-ticket-heroku.herokuapp.com/problem/add/" method="get">
+    <input type="hidden" name="uuid" value="<%- uuid %>">
+    <button type="submit">Submit</button>
+  </form>
+</article>
+<article class="well col-xs-12">
   <h2>Details</h2>
   <%- details %>
   <ul>
